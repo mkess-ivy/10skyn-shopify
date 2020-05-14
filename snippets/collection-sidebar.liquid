@@ -1,0 +1,158 @@
+{% assign filters = false %}
+<div class="desktop-2 tablet-6 mobile-3">
+  <div id="collection-sidebar">
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'menu' or block.type == 'filter' or block.type == 'image' or block.type == 'vendor_list' -%}
+        {% assign filters = true %}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if filters -%}
+      <div class="mobile-filter-trigger desktop-hide tablet-6 mobile-3">
+        {{ 'collections.filter.filters' | t }}
+        <svg width="12px" height="8px" viewBox="0 0 12 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Collections-+-Pagination-&amp;-Breadcrumbs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Desk---Collections" transform="translate(-654.000000, -1670.000000)" stroke="#353535">
+                    <g id="Pagination-1" transform="translate(640.000000, 1660.000000)">
+                        <polyline id="Previous-Icon" points="25 10 15 20 25 30"></polyline>
+                    </g>
+                </g>
+            </g>
+        </svg>
+      </div>
+    {%- endif -%}
+
+    {% comment %}
+      Include block settings for collecti.on template to add sidebar menus
+    {% endcomment %}
+    <div class="sidebar-filters tablet-6 mobile-3">
+      {% if current_tags.size >= 1 %}
+        <a class="clear-tags" href="{{ collection.url }}">{{ 'collections.general.clear_all' | t }}</a>
+      {% endif %}
+
+      {% for block in section.blocks %}
+
+        {% if block.type == 'image' %}
+          <div class="sidebar-image">
+            {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
+              {% if block.settings.image != blank %}
+                {% include 'basic-responsive-image' | type: block.settings.image %}
+                <noscript>
+                  <img src="{{ block.settings.image | img_url: '400x' }}" alt="{{ block.settings.image.alt }}">
+                </noscript>
+              {% else %}
+                <div class="onboard">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {% endif %}
+            {% if block.settings.link != blank %}</a>{% endif %}
+          </div>
+        {% endif %}
+
+        {% if block.type == 'vendor_list' %}
+          {% if collection.handle == "all" %}
+            <div class="filter-wrapper">
+              <label for="styled-select-trigger" id="filter-{{ forloop.index0 }}" data-id="filter-{{ forloop.index0 }}"  class="main-label">
+                {{ block.settings.shop_by_designer_title  }}
+                <svg width="12px" height="8px" viewBox="0 0 12 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Collections-+-Pagination-&amp;-Breadcrumbs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Desk---Collections" transform="translate(-654.000000, -1670.000000)" stroke="#353535">
+                            <g id="Pagination-1" transform="translate(640.000000, 1660.000000)">
+                                <polyline id="Previous-Icon" points="25 10 15 20 25 30"></polyline>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+              </label>
+              <ul class="styled-select coll-filter" style="display: none;">
+                {% for product_vendor in shop.vendors %}
+                  <li>{{ product_vendor | link_to_vendor  }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% else %}
+            <div class="filter-wrapper">
+              <label for="styled-select-trigger" id="filter-{{ forloop.index0 }}" data-id="filter-{{ forloop.index0 }}"  class="main-label">
+                {{ block.settings.shop_by_designer_title }}
+                <svg width="12px" height="8px" viewBox="0 0 12 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Collections-+-Pagination-&amp;-Breadcrumbs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Desk---Collections" transform="translate(-654.000000, -1670.000000)" stroke="#353535">
+                            <g id="Pagination-1" transform="translate(640.000000, 1660.000000)">
+                                <polyline id="Previous-Icon" points="25 10 15 20 25 30"></polyline>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+              </label>
+              <ul class="styled-select coll-filter" style="display: none;">
+                {% for product_vendor in collection.all_vendors %}
+                  <li class="{{ product_vendor | handelize }}">
+                    {{ product_vendor | link_to_vendor }}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% if block.type == 'menu' %}
+          <div class="filter-wrapper" {{ block.shopify_attributes }}>
+            <label for="styled-select-trigger" id="filter-{{ forloop.index0 }}" data-id="filter-{{ forloop.index0 }}"  class="main-label">
+              {{ block.settings.title }}
+              <svg width="12px" height="8px" viewBox="0 0 12 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Collections-+-Pagination-&amp;-Breadcrumbs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Desk---Collections" transform="translate(-654.000000, -1670.000000)" stroke="#353535">
+                          <g id="Pagination-1" transform="translate(640.000000, 1660.000000)">
+                              <polyline id="Previous-Icon" points="25 10 15 20 25 30"></polyline>
+                          </g>
+                      </g>
+                  </g>
+              </svg>
+            </label>
+            <ul class="styled-select coll-filter" style="display: none;">
+              {% for link in linklists[block.settings.side_nav].links %}
+                {% if link.links != blank %}
+                  <li aria-haspopup="true" aria-expanded="false">
+                    <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                  </li>
+                  <ul class="sub">
+                    {% for sub_link in link.links %}
+                      {% if sub_link.links != blank %}
+                        <li aria-haspopup="true" aria-expanded="false">
+                          <a href="{{ sub_link.url }}">{{ sub_link.title | escape }}</a>
+                        </li>
+                        <ul class="sub">
+                          {% for sub_sub_link in sub_link.links %}
+                            <li>
+                              <a href="{{ sub_sub_link.url }}">
+                                {{ sub_sub_link.title }}
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% else %}
+                        <li>
+                          <a href="{{ sub_link.url }}">
+                            {{ sub_link.title | escape }}
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <li>
+                    <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        {% include 'filter' %}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,210 @@
+{% assign has_products = false %}
+{% assign has_articles = false %}
+{% assign has_pages = false %}
+
+{% paginate search.results by 24 %}
+  <div id="page" class="desktop-12 tablet-6 mobile-3">
+    <h1>{{ 'general.search.title' | t }}</h1>
+    <div id="search-bar" class="desktop-6 desktop-push-3 tablet-6 mobile-3">
+      <form action="/search" method="get">
+        {% if search.performed %}
+          {% if search.results_count == 0 %}
+            <p>{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
+          {% else %}
+            <p>{{ 'general.search.results_for_html' | t: terms: search.terms }}</p>
+          {% endif %}
+        {% endif %}
+        <div class="search-form">
+          <input
+            type="text"
+            name="q"
+            id="q"
+            placeholder="{{ 'general.search.placeholder' | t }}"/>
+          <button type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% if search.performed %}
+
+  {% for item in search.results %}
+    {% if item.object_type == 'product' %}
+     {% assign has_products = true %}
+    {% endif %}
+    {% if item.object_type == 'article' %}
+     {% assign has_articles = true %}
+    {% endif %}
+    {% if item.object_type == 'page' %}
+     {% assign has_pages = true %}
+    {% endif %}
+  {% endfor %}
+
+  {% if has_products %}
+    <div id="search-products" class="desktop-12 tablet-6 mobile-3">
+      <h2 class="section-title">{{ 'general.search.products' | t }}</h2>
+      <div id="product-loop">
+      {% for item in search.results %}
+        {% if item.object_type == 'product' %}
+          <div
+            class="product-index desktop-3 mobile-half{% cycle ' first', '', '', ' last' %}{% if settings.animation != 'none' %} animate {{ settings.animation }}{% endif %}"
+            id="prod-{{ item.id }}"
+            data-alpha="{{ item.title }}"
+            data-price="{{ item.price }}">
+            {% if item.available %}
+              {% for col in item.collections %}
+                {% if col.handle == 'new' %}
+                  <div class="new icn">{{ 'products.general.new' | t }}</div>
+                {% endif %}
+              {% endfor %}
+
+              {% if item.price < item.compare_at_price %}
+                <div class="sale-item icn">{{ 'products.general.sale' | t }}</div>
+              {% endif %}
+            {% else %}
+              <div class="so icn">{{ 'products.general.sold' | t }}</div>
+            {% endif %}
+            <div class="prod-image">
+              {% if item.featured_media %}
+                <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
+                  <div class="reveal">
+                    {%- assign preview_image = item.featured_media.preview_image -%}
+                    {%- assign second_image = item.media[1] -%}
+                    {% include "basic-responsive-image", type: item.featured_media.preview_image %}
+                    <noscript>
+                      <img src="{{ preview_image | img_url: '1024x' }}" alt="{{ preview_image.alt | escape }}">
+                    </noscript>
+
+                    {% if settings.image_flip and item.media.size > 1 %}
+                      <div class="hidden">
+                        <img class="lazyload lazyload-fade"
+                          id="{{ preview_image.id }}"
+                          data-src="{{ item.media[1] | img_url: '1024x' }}"
+                          data-sizes="auto"
+                          alt="{{ preview_image.alt | escape }}">
+                        <noscript>
+                          <img src="{{ item.media[1] | img_url: '1024x' }}" alt="{{ item.media[1].alt | escape }}">
+                        </noscript>
+                      </div>
+                    {% endif %}
+                  </div>
+                </a>
+              {%- else -%}
+                {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <div class="product-info">
+              <div class="product-info-inner">
+                <h4 class="product-title">
+                  <a href="{{ item.url | within: collection }}">
+                    {{ item.title }}
+                  </a>
+                </h4>
+                {% if settings.vendor %}
+                  <p class="product-vendor">{{ item.vendor }}</p>
+                {% endif %}
+                <div class="price">
+                  {% if item.price < item.compare_at_price %}
+                    <div class="onsale">{{ item.price | money }}</div>
+                    <div class="was">{{ item.compare_at_price | money }}</div>
+                  {% else %}
+                    <div class="prod-price">
+                      {% if item.price_varies %}
+                        {{ 'products.general.from' | t }}
+                        {{ item.price_min | money }}
+                        -
+                        {{ item.price_max | money }}
+                      {% else %}{{ item.price | money }}
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+  {% if section.settings.show_articles and has_articles %}
+    <div id="search-articles" class="desktop-12 tablet-6 mobile-3">
+      <h2 class="section-title">{{ 'general.search.articles' | t }}</h2>
+      {% for item in search.results %}
+        {% if item.object_type == 'article' %}
+        <div class="search-article desktop-3 mobile-half{% cycle ' first', '', '', ' last' %}{% if settings.animation != 'none' %} animate {{ settings.animation }}{% endif %}">
+          <!--'item' is an article All article object properties can be accessed. -->
+          {% if item.image %}
+            <div class="prod-image">
+              <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                {%- include 'basic-responsive-image', type: item.image  -%}
+                <noscript>
+                  <img src="{{ item.image | img_url: '800x' }}" alt="{{ item.image.alt }}">
+                </noscript>
+              </a>
+            </div>
+          {% endif %}
+          <div class="product-info">
+            <h4 class="page-info"><a href="{{ item.url }}">{{ item.title }}</a></h4>
+            <p>{{ item.content | strip_html | truncate: 200 }}</p>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if section.settings.show_pages and has_pages %}
+    <div id="search-pages" class="desktop-12 tablet-6 mobile-3">
+      <h2 class="section-title">{{ 'general.search.pages' | t }}</h2>
+      {% for item in search.results %}
+        {% if item.object_type == 'page' %}
+        <div class="search-page desktop-3 mobile-half{% cycle ' first', '', '', ' last' %}{% if settings.animation != 'none' %} animate {{ settings.animation }}{% endif %}">
+          <!--'item' is an page All page object properties can be accessed. -->
+          {% if item.image %}
+            <div class="prod-image">
+              <a href="{{ item.url }}" title="{{ item.title | escape }}">
+                {%- include 'basic-responsive-image', type: item.image  -%}
+                <noscript>
+                  <img src="{{ item.image | img_url: '800x' }}" alt="{{ item.image.alt }}">
+                </noscript>
+              </a>
+            </div>
+          {% endif %}
+          <div class="product-info">
+            <h4 class="page-info"><a href="{{ item.url }}">{{ item.title }}</a></h4>
+            <p>{{ item.content | strip_html | truncate: 200 }}</p>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+  <div class="clear"></div>
+  {% include 'pagination' %}
+
+{% endif %}
+
+
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_articles",
+      "label": "Show relevant blog articles",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pages",
+      "label": "Show relevant pages",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

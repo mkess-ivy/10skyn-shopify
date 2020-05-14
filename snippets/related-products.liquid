@@ -1,0 +1,69 @@
+{% capture number_of_related_products_to_fetch %}
+  {{ number_of_related_products_to_show | plus: 1 }}
+{% endcapture %}
+
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+  {% assign found_a_collection = false %}
+  {% for c in product.collections %}
+    {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+      {% assign found_a_collection = true %}
+      {% assign collection = c %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+<div class="related-products desktop-12 mobile-3">
+
+  <h5 class="section-title">{{ "products.product.related_products" | t }}</h5>
+
+  <div id="product-loop">
+    {% assign current_product_found = false %}
+    {% for prod in collection.products limit: 7 %}
+      {% if prod.title == product.title %}
+        {% assign current_product_found = true %}
+      {% else %}
+        {% unless current_product_found == false and forloop.last %}
+          <div class="product-index desktop-2 tablet-2 mobile-half" id="prod-{{ product.id }}" data-alpha="{{ prod.title }}" data-price="{{ prod.price }}">
+            {% assign featured_media = prod.featured_media %}
+            {% assign img_url = featured_media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+            <a href="{{ prod.url | within: collection }}" title="{{ prod.title | escape }}">
+              <img class="lazyload lazyload-fade"
+                  data-src="{{ img_url }}"
+                  data-sizes="auto"
+                  data-image-id="{{ image.id }}"
+                  alt="{{ product.title | escape }}"/>
+                <noscript>
+                  <img
+                  src="{{ featured_media | product_img_url: '800x' }}"
+                  alt='{{ product.title | escape }}'/>
+                </noscript>
+            </a>
+
+            <div class="product-info">
+
+              <div class="product-info-inner">
+                {% if settings.vendor %}
+                  <span class="product-vendor">{{ prod.vendor }}</span>
+                {% endif %}
+                <a href="{{ prod.url | within: collection }}">
+                  <span class="product-title">{{ prod.title }}</span>
+                </a>
+                <div class="price">
+                  {% if product.price < prod.compare_at_price %}
+                    <div class="onsale">{{ prod.price | money }}</div>
+                    <div class="was">{{ prod.compare_at_price | money }}</div>
+                  {% else %}
+                    <div class="prod-price">{% if prod.price_varies %} {{ 'products.general.from' | t }} {{ prod.price_min | money }} - {{ prod.price_max | money }} {% else %}{{ prod.price | money }}{% endif %}</div>
+                  {% endif %}
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

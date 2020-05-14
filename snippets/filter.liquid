@@ -1,0 +1,146 @@
+{% if block.type == 'filter' %}
+<div class="filter-wrapper">
+  {% assign tags = block.settings.filter_by  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+  <input id="styled-select-trigger" class="visually-hidden filter-control" type="checkbox" value="enabled-SORT">
+  <label for="styled-select-trigger" id="filter-{{ forloop.index0 }}" data-id="filter-{{ forloop.index0 }}"  class="main-label">
+    {{ block.settings.filter_by_title }}
+    <svg width="12px" height="8px" viewBox="0 0 12 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Collections-+-Pagination-&amp;-Breadcrumbs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Desk---Collections" transform="translate(-654.000000, -1670.000000)" stroke="#353535">
+                <g id="Pagination-1" transform="translate(640.000000, 1660.000000)">
+                    <polyline id="Previous-Icon" points="25 10 15 20 25 30"></polyline>
+                </g>
+            </g>
+        </g>
+    </svg>
+  </label>
+  <ul class="styled-select coll-filter" style="display: none;">
+    {% assign filter_type = block.settings.filter_by_title | handleize %}
+    {% for tag in tags %}
+      {% if current_tags contains tag %}
+        <li class="current">
+          {{ tag | link_to_remove_tag: tag }}
+          <svg width="11px" height="9px" viewBox="0 0 11 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Collections-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="Desk---Collections---Top-Filters" transform="translate(-250.000000, -308.000000)" fill="#353535" fill-rule="nonzero">
+                      <g id="Filters-and-Sorting" transform="translate(108.000000, 248.000000)">
+                          <g id="Category-Dropdown" transform="translate(0.000000, 40.000000)">
+                              <polygon id="Path" points="142.724138 23.5 142 24.1896552 145.695402 28.0698276 152.724138 20.6896552 152 20 145.695402 26.6198276"></polygon>
+                          </g>
+                      </g>
+                  </g>
+              </g>
+          </svg>
+        </li>
+      {% elsif collection.all_tags contains tag %}
+        <li>{{ tag | link_to_add_tag: tag }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  <script>
+    /* Product Tag Filters - Good for any number of filters on any type of collection pages */
+    /* Give you product tag filter select element a class of coll-filter */
+    /* Give your collection select a class of coll-picker */
+    /* Brought to you by Caroline Schnapp */
+   /* Product Tag Filters - Good for any number of filters on any type of collection page.
+       Give you product tag filter select element a class of coll-filter.
+       Give your collection select a class of coll-picker.
+       Brought to you by Caroline Schnapp. */
+    Shopify.queryParams = {};
+    if (location.search.length) {
+      for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+        aKeyValue = aCouples[i].split('=');
+        if (aKeyValue.length > 1) {
+          Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+        }
+      }
+    }
+    jQuery('.coll-picker').change(function() {
+      if (jQuery(this).val()) {
+        location.href = '/collections/' + jQuery(this).val();
+      }
+      else {
+        location.href = '/collections/all';
+      }
+    });
+    var collFilters = jQuery('.coll-filter');
+    collFilters.change(function() {
+      delete Shopify.queryParams.page;
+      var newTags = [];
+      collFilters.each(function() {
+        if (jQuery(this).val()) {
+          newTags.push(jQuery(this).val());
+        }
+      });
+      {% if collection.handle %}
+      var newURL = '/collections/{{ collection.handle }}';
+      if (newTags.length) {
+        newURL += '/' + newTags.join('+');
+      }
+      var search = jQuery.param(Shopify.queryParams);
+      if (search.length) {
+        newURL += '?' + search;
+      }
+      location.href = newURL;
+      {% else %}
+      if (newTags.length) {
+        Shopify.queryParams.constraint = newTags.join('+');
+      }
+      else {
+        delete Shopify.queryParams.constraint;
+      }
+      location.search = jQuery.param(Shopify.queryParams);
+      {% endif %}
+    });
+
+    $(document).on('shopify:section:load', function(event) {
+      Shopify.queryParams = {};
+      if (location.search.length) {
+        for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+          aKeyValue = aCouples[i].split('=');
+          if (aKeyValue.length > 1) {
+            Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+          }
+        }
+      }
+      jQuery('.coll-picker').change(function() {
+        if (jQuery(this).val()) {
+          location.href = '/collections/' + jQuery(this).val();
+        }
+        else {
+          location.href = '/collections/all';
+        }
+      });
+      var collFilters = jQuery('.coll-filter');
+      collFilters.change(function() {
+        delete Shopify.queryParams.page;
+        var newTags = [];
+        collFilters.each(function() {
+          if (jQuery(this).val()) {
+            newTags.push(jQuery(this).val());
+          }
+        });
+        {% if collection.handle %}
+        var newURL = '/collections/{{ collection.handle }}';
+        if (newTags.length) {
+          newURL += '/' + newTags.join('+');
+        }
+        var search = jQuery.param(Shopify.queryParams);
+        if (search.length) {
+          newURL += '?' + search;
+        }
+        location.href = newURL;
+        {% else %}
+        if (newTags.length) {
+          Shopify.queryParams.constraint = newTags.join('+');
+        }
+        else {
+          delete Shopify.queryParams.constraint;
+        }
+        location.search = jQuery.param(Shopify.queryParams);
+        {% endif %}
+      });
+    });
+  </script>
+</div>
+{% endif %}

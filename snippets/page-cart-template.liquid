@@ -1,0 +1,209 @@
+<script id="cartPageTemplate" type="text/template">
+{% raw %}
+ <form action="{% endraw %}{{ routes.cart_url }}{% raw %}" method="post" novalidate id="cartform" class="cart-page-form">
+   <div class="desktop-6 tablet-6 mobile-3">
+     <h5 class="cart-title text-left">{% endraw %}{{ 'cart.general.title' | t }} {{ cart.items_subtotal_price | money }}{% raw %}</h5>
+   </div>
+   <div class="desktop-6 tablet-6 mobile-3">
+     <h5 class="cart-count text-right"><strong>{% endraw %}{{ 'cart.general.items_cart_html' | t: cart_count: cart.item_count }}</strong> {{ 'cart.general.in_shopping_cart' | t }}{% raw %}</h5>
+   </div>
+   <div id="cart-items" class="desktop-12 tablet-6 mobile-3">
+     {{#items}}
+       <div id="cart-item-{{ forloop.index }}" class="cart-item">
+         <div class="item image">
+           <a href="{{url}}" title="{{name}}">
+             <img src="{{img}}" alt="{{name}}">
+           </a>
+         </div>
+         <div class="item title">
+           <h5>{{name}}</h5>
+           {% endraw %}{% if settings.vendor %}{% raw %}
+             <p>{{vendor}}</p>
+           {% endraw %}{% endif %}{% raw %}
+           {% endraw %}{% unless item.variant.title contains 'Default' %}{% raw %}
+             <p class="item-properties">
+               {{variation}}
+             </p>
+           {% endraw %}{% endunless %}{% raw %}
+
+           {{#properties}}
+             {{#each this}}
+               {{#if this}}
+                 <p class="ajaxcart__product-meta">{{@key}}: {{this}}</p>
+               {{/if}}
+             {{/each}}
+           {{/properties}}
+
+           <div class="grid-item cart-quantity">
+             <div class="ajaxifyCart--qty">
+               <input type="text" name="updates[]" class="ajaxifyCart--num" value="{{itemQty}}" min="0" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+               <span class="ajaxifyCart--qty-adjuster ajaxifyCart--add" data-line="{{line}}" data-qty="{{itemAdd}}">+</span>
+               <span class="ajaxifyCart--qty-adjuster ajaxifyCart--minus" data-line="{{line}}" data-qty="{{itemMinus}}">-</span>
+             </div>
+           </div>
+         </div>
+         <div class="item price">
+           {{#if discountsApplied}}
+             <h6 class="cart-line-price onsale" data-key="{{key}}">
+               {{itemQty}} x {{finalPrice}}
+               <span style="text-decoration: line-through;">
+                {{ originalPrice }}
+               </span>
+             </h6>
+           {{else}}
+             <h6 class="cart-line-price" data-key="{{key}}">
+               {{itemQty}} x {{finalPrice}}
+             </h6>
+           {{/if}}
+
+           {{#if discountsApplied}}
+             {{#each discounts}}
+               <div class="discounts">
+                 <p class="onsale"><i class="fa fa-tag"></i> {% endraw %}{{ 'cart.general.discount_applied' | t }}{% raw %}</p>
+                 <p> {{ this.discount_application.title }} (-)</p>
+               </div>
+             {{/each}}
+           {{/if}}
+
+           <div class="subtotal">
+             <h6>{% endraw %}{{ 'cart.general.subtotal' | t }}{% raw %}</h6>
+             <h6 class="cart-final-line-price {{#if discountsApplied}}onsale{{/if}}" data-key="{{key}}">
+               {{discountedPrice}}
+               {{#if discountsApplied}}
+                 <del>{{price}}</del>
+               {{/if}}
+             </h6>
+           </div>
+         </div>
+         <div class="item remove">
+           <a class="remove-product" href="#" data-line="{{ forloop.index }}">
+             <svg width="14px" height="15px" viewBox="0 0 10 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                 <title>X - delete item</title>
+                 <g id="Hover-Mini-Cart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+                     <g id="Hover-Mini-Cart---with-discounts" transform="translate(-1389.000000, -111.000000)" stroke="#5A5F66">
+                         <g id="Hover-Cart---Light-Copy" transform="translate(1041.000000, 40.000000)">
+                             <g id="X---delete-item" transform="translate(353.000000, 75.000000) rotate(-45.000000) translate(-353.000000, -75.000000) translate(348.000000, 70.000000)">
+                                 <path d="M5,0 L5,10" id="Line"></path>
+                                 <path d="M10,5 L0,5" id="Line-Copy"></path>
+                             </g>
+                         </g>
+                     </g>
+                 </g>
+             </svg>
+           </a>
+         </div>
+       </div>
+     {{/items}}
+   </div>
+
+   <div id="cart-notes" class="desktop-7 tablet-6 mobile-3">
+     <ul class="vantage-accordion">
+       {% endraw %}{% if section.settings.show_cart_note %}{% raw %}
+         <li>
+           <a href="#" class="product-accordion-toggle">
+             {% endraw %}{{ 'cart.general.note' | t }}{% raw %}
+             <svg class="open" style="display: block;" width="16px" height="2px" viewBox="0 0 16 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                 <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                     <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1249.000000)" stroke="#222222" stroke-width="2">
+                         <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                             <line x1="360" y1="29" x2="344" y2="29" id="Path-3-Copy"></line>
+                         </g>
+                     </g>
+                 </g>
+             </svg>
+             <svg class="closed" style="display: none;" width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                 <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                     <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1433.000000)" stroke="#222222" stroke-width="2">
+                         <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                             <g id="Plus" transform="translate(344.000000, 212.500000)">
+                                 <line x1="8" y1="0" x2="8" y2="16" id="Path-3"></line>
+                                 <line x1="16" y1="8" x2="0" y2="8" id="Path-3-Copy"></line>
+                             </g>
+                         </g>
+                     </g>
+                 </g>
+             </svg>
+           </a>
+           <ul class="product-accordion-content default">
+             <textarea name="note" id="note" rows="5" cols="60">{% endraw %}{{ cart.note }}{% raw %}</textarea>
+           </ul>
+         </li>
+       {% endraw %}{% endif %}{% raw %}
+
+       {% endraw %}{% for block in section.blocks %}{% raw %}
+         {% endraw %}{% if block.type == 'accordion_info' %}{% raw %}
+           <li>
+             <a href="#" class="product-accordion-toggle">
+               {% endraw %}{{ block.settings.accordion_heading }}{% raw %}
+               <svg class="open" style="display: block;" width="16px" height="2px" viewBox="0 0 16 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                   <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                       <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1249.000000)" stroke="#222222" stroke-width="2">
+                           <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                               <line x1="360" y1="29" x2="344" y2="29" id="Path-3-Copy"></line>
+                           </g>
+                       </g>
+                   </g>
+               </svg>
+               <svg class="closed" style="display: none;" width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                   <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                       <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1433.000000)" stroke="#222222" stroke-width="2">
+                           <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                               <g id="Plus" transform="translate(344.000000, 212.500000)">
+                                   <line x1="8" y1="0" x2="8" y2="16" id="Path-3"></line>
+                                   <line x1="16" y1="8" x2="0" y2="8" id="Path-3-Copy"></line>
+                               </g>
+                           </g>
+                       </g>
+                   </g>
+               </svg>
+             </a>
+             <ul class="product-accordion-content default">
+               {% endraw %}{{ block.settings.accordion_text }}{% raw %}
+             </ul>
+           </li>
+         {% endraw %}{% endif %}{% raw %}
+       {% endraw %}{% endfor %}{% raw %}
+     </ul>
+   </div>
+   <div id="cart-summary" class="desktop-5 tablet-6 mobile-3">
+     <div class="subtotal">
+       <h6 class="title">{% endraw %}{{ 'cart.general.subtotal' | t }}{% raw %} <span class="total-price">{{subTotalPrice}}</span></h6>
+     </div>
+     <div class="discounts">
+       {{#if cartDiscountsApplied}}
+         <p class="onsale">{% endraw %}{{ 'cart.general.discounts' | t }}{% raw %}</p>
+         <ul>
+           {{#each cartDiscounts}}
+             <li class="onsale"><i class="fa fa-tag"></i> {% endraw %}{{ discount_application.title }}{% raw %}
+              (-this.formattedAmount)</li>
+           {{/each}}
+           </ul>
+       {{else}}
+         {% endraw %}{% if cart.total_discounts > 0 %}{% raw %}
+           <p class="cart-savings onsale">{% endraw %}{{ 'cart.general.savings' | t }}{% raw %}</p>
+           <p class="cart-savings-amount onsale">{{cartTotalDiscounts}}</p>
+         {% endraw %}{% endif %}{% raw %}
+      {{/if}}
+     </div>
+     <div class="total">
+       <h5 class="title">{% endraw %}{{ 'cart.general.total' | t }}{% raw %} <span class="cart-original-total">{{totalPrice}}</span> <span class="cart-total"></span></h5>
+     </div>
+     <input type="submit" name="checkout" id="checkout" value="{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}" class="button" />
+     <div class="clear"></div>
+     {% endraw %}{% if additional_checkout_buttons %}
+       <div class="additional-checkout-buttons">
+         {{ content_for_additional_checkout_buttons }}
+       </div>
+     {% endif %}{% raw %}
+
+     {% endraw %}{% if section.settings.show_payment_methods %}
+       <div class="payment-types">
+         {% for type in shop.enabled_payment_types %}
+           <img src="{{ type | payment_type_img_url }}" />
+         {% endfor %}
+       </div>
+     {% endif %}{% raw %}
+   </div>
+ </form>
+{% endraw %}
+</script>

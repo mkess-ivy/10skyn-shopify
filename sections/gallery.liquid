@@ -1,0 +1,330 @@
+<section class="homepage-section-{{ section.id }} feat-images image-gallery section-gallery-{{ section.id }}{% if section.settings.no_bottom_margin %} nbm{% endif %}{% if settings.animation != 'none' %} animate {{ settings.animation }}{% endif %}" data-section-id="{{ section.id }}">
+    <div class="flex-container no-fouc">
+      {% for block in section.blocks %}
+        <div class="gallery-block" {{ block.shopify_attributes }}>
+          {% case block.type %}
+            {% when 'image' %}
+              {% case block.settings.image_width %}
+                {% when '25' %}
+                  {%- assign image_width = 'one-quarter' -%}
+                {% when '33' %}
+                  {%- assign image_width = 'one-third' -%}
+                {% when '50' %}
+                  {%- assign image_width = 'one-half' -%}
+                {% when '66' %}
+                  {%- assign image_width = 'two-thirds' -%}
+                {% when '75' %}
+                  {%- assign image_width = 'three-quarters' -%}
+                {% when '100' %}
+                  {%- assign image_width = 'one-whole' -%}
+              {% endcase %}
+
+              <div class="homepage-promo promo-{{ block.id }} {{ image_width }} flex-item">
+                <div class="promo-inner">
+                  {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
+                    {% if block.settings.image != blank %}
+                      {% include 'basic-responsive-image' | type: block.settings.image %}
+                      <noscript>
+                        <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.image.alt }}">
+                      </noscript>
+                    {% else %}
+                      <div class="onboard">
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {% endif %}
+                    <div class="caption">
+                      {% if block.settings.title != blank %}
+                        <h3>{{ block.settings.title | escape }}</h3>
+                      {% endif %}
+                      {% if block.settings.hidden_text != blank %}
+                        <p>{{ block.settings.hidden_text | escape }}</p>
+                      {% endif %}
+                    </div>
+                  {% if block.settings.link != blank %}</a>{% endif %}
+                </div>
+                <style>
+                  .homepage-promo.promo-{{ block.id }} .caption h3 {
+                    color: {{ block.settings.promo_color }};
+                  }
+                  .homepage-promo.promo-{{ block.id }} .caption p {
+                    color: {{ block.settings.hidden_color }};
+                  }
+                </style>
+              </div>
+            {% when 'row_break' %}
+             <div class="clear"></div>
+          {% endcase %}
+        </div>
+      {% endfor %}
+
+      {% if section.blocks.size == 0 %}
+        {% include 'no-blocks' %}
+      {% endif %}
+    </div>
+    <div class="clear"></div>
+    <style>
+      .image-gallery .flex-container {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+      .image-gallery .flex-container .flex-item {
+        float: left;
+        margin-bottom: 0;
+        padding: 0;
+      }
+      #shopify-section-{{ section.id }} .homepage-promo .promo-inner h3 {
+        font-size: {{ section.settings.promo_size }}px;
+      }
+      #shopify-section-{{ section.id }} .homepage-promo .promo-inner p {
+        font-size: {{ section.settings.hidden_size }}px;
+      }
+      {% if section.settings.image_padding == 'padding' %}
+        .section-gallery-{{ section.id }} .flex-container {
+          margin-top: -10px;
+          margin-bottom: -10px;
+        }
+        .section-gallery-{{ section.id }} .flex-container .flex-item {
+          padding: 10px !important;
+        }
+      {% endif %}
+      {% if section.settings.full_width %}
+        .section-gallery-{{ section.id }} .flex-container {
+          width: 102.4%;
+          margin-left: -20px;
+        }
+        @media only screen and (max-width: 980px) {
+          .section-gallery-{{ section.id }} .flex-container {
+            width: 105.5%;
+            margin-left: -10px;
+          }
+        }
+      {% else %}
+        .section-gallery-{{ section.id }} .flex-container {
+          width: 90%;
+          margin: 0 auto !important;
+        }
+      {% endif %}
+      .image-gallery .flex-container .one-quarter {
+        width: 25%;
+      }
+      .image-gallery .flex-container .one-third {
+        width: calc(100% / 3);
+      }
+      .image-gallery .flex-container .two-thirds {
+        width: 66.667%;
+      }
+      .image-gallery .flex-container .one-half {
+        width: 50%;
+      }
+      .image-gallery .flex-container .three-quarters {
+        width: 75%;
+      }
+      .image-gallery .flex-container .one-whole {
+        width: 100%;
+      }
+      @media only screen and (max-width: 980px) {
+        .image-gallery .flex-container {
+          width: 100%;
+          margin: 0 auto !important;
+        }
+        .image-gallery .flex-container .one-quarter {
+          width: 50%;
+        }
+        .image-gallery .flex-container .one-third {
+          width: 100%;
+        }
+        .image-gallery .flex-container .two-thirds {
+          width: 100%;
+        }
+        .image-gallery .flex-container .one-half {
+          width: 100%;
+        }
+        .image-gallery .flex-container .three-quarters {
+          width: 100%;
+        }
+        .image-gallery .flex-container .one-whole {
+          width: 100%;
+        }
+      }
+      @media only screen and (max-width: 740px) {
+        .image-gallery .flex-container {
+          width: 100%;
+          margin: 0 auto !important;
+        }
+        .image-gallery .flex-container .one-quarter {
+          width: 50%;
+        }
+        .image-gallery .flex-container .one-third {
+          width: 50%;
+        }
+        .image-gallery .flex-container .two-thirds {
+          width: 100%;
+        }
+        .image-gallery .flex-container .one-half {
+          width: 50%;
+        }
+        .image-gallery .flex-container .three-quarters {
+          width: 100%;
+        }
+        .image-gallery .flex-container .one-whole {
+          width: 100%;
+        }
+      }
+    </style>
+</section>
+<div class="clear"></div>
+  {% schema %}
+  {
+      "name": "Gallery",
+  	  "max_blocks": 16,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "full_width",
+          "label": "Enable full width",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "promo_size",
+          "min": 12,
+          "max": 48,
+          "step": 1,
+          "unit": "px",
+          "label": "Heading size",
+          "default": 32
+        },
+        {
+          "type": "range",
+          "id": "hidden_size",
+          "min": 12,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "label": "Subheading size",
+          "default": 18
+        },
+        {
+          "type": "checkbox",
+          "id": "no_bottom_margin",
+          "label": "No space after section",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "image_padding",
+          "label": "Choose Style",
+          "default": "padding",
+          "options": [
+           {
+               "value": "padding",
+               "label": "Space around images"
+            },
+            {
+               "value": "no-padding",
+               "label": "Images touching"
+            }
+          ]
+        }
+      ],
+    	"blocks": [
+        {
+          "type": "image",
+          "name": "Image",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "type": "select",
+              "id": "image_width",
+              "label": "Container width",
+              "default": "33",
+              "options": [
+               {
+                   "value":"25",
+                   "label":"25%"
+                },
+                {
+                   "value":"33",
+                   "label":"33%"
+                },
+                {
+                   "value":"50",
+                   "label":"50%"
+                },
+                {
+                   "value":"66",
+                   "label":"66%"
+                },
+                {
+                   "value":"75",
+                   "label":"75%"
+                },
+                {
+                   "value":"100",
+                   "label":"100%"
+                }
+              ]
+            },
+            {
+              "type": "url",
+              "id": "link",
+              "label": "Link",
+              "info": "Optional"
+            },
+             {
+              "type": "text",
+              "id": "title",
+              "label": "Image heading",
+              "default": "Heading"
+             },
+             {
+              "type": "text",
+              "id": "hidden_text",
+              "label": "Image subheading",
+              "default": "Subheading",
+              "info": "Shown on hover"
+             },
+            {
+              "type": "color",
+              "id": "promo_color",
+              "label": "Heading",
+              "default": "#000"
+            },
+            {
+              "type": "color",
+              "id": "hidden_color",
+              "label": "Subheading",
+              "default": "#000"
+            }
+          ]
+        },
+        {
+          "type": "row_break",
+          "name": "Row Break",
+          "settings": []
+        }
+      ],
+      "presets": [
+        {
+          "name": "Gallery",
+          "category": "Image",
+          "blocks": [
+            {
+              "type": "image"
+            },
+            {
+              "type": "image"
+            },
+            {
+              "type": "image"
+            }
+          ]
+        }
+      ]
+    }
+  {% endschema %}

@@ -1,0 +1,129 @@
+{% assign call_to_action = 'products.product.add_to_cart' | t %}
+
+{% unless current_variant.available %}
+  {% assign call_to_action = 'products.product.sold_out' | t %}
+{% endunless %}
+
+{% form 'product', product, id: "AddToCartForm", class: "product_form", data-product-form:product_form_config %}
+  {% if template contains 'product.quick' %}
+    <h3>
+      {{ product.title }}
+    </h3>
+  {% else %}
+    <h1>{{ product.title }}</h1>
+  {% endif %}
+    <h5 id="product-price" class="clearfix">
+      <span class="product-price">
+        {{ current_variant.price | money }}
+      </span>
+      {% if current_variant.compare_at_price > current_variant.price %}
+        <span class="was">
+          {{ current_variant.compare_at_price | money }}
+        </span>
+      {% endif %}
+    </h5>
+
+    <div class="variants clearfix">
+      {% if product.options.size > 1 %}
+        <div class="select" {% if product.variants.size == 1 %}style="display: none;"{% endif %}>
+          <select id="{% if template == 'product.quick' %}qv-{% endif %}product-select-{{ product.id }}" name='id' style="display: none;">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" {% if variant == current_variant %}selected="selected"{% endif %}>
+                {{ variant.title }} - {{ variant.price | money }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        {% if settings.product_variants == 'swatches' %}
+          {% for option in product.options_with_values %}
+            {% include "swatch" %}
+          {% endfor %}
+        {% endif %}
+      {% elsif product.options.size == 1 and product.variants.size > 1 %}
+        <div class="select">
+          <label>{{ product.options[0] }}</label>
+          <select id="{% if template == 'product.quick' %}qv-{% endif %}product-select-{{ product.id }}" name='id' style="display: none;">
+            {% for variant in product.variants %}
+              <option data-sku="{{ variant.sku }}" value="{{ variant.id }}" {% if variant == current_variant %}selected="selected"{% endif %}>
+                {{ variant.title }} - {{ variant.price | money }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        {% if settings.product_variants == 'swatches' %}
+          {% for option in product.options_with_values %}
+            {% include "swatch" %}
+          {% endfor %}
+        {% endif %}
+      {% elsif product.variants.size == 1 %}
+        <select id="{% if template == 'product.quick' %}qv-{% endif %}product-select-{{ product.id }}" name="id" {% if product.variants.size == 1 %}style="display: none;"{% endif %}>
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}" {% if variant == current_variant %}selected="selected"{% endif %}>
+              {{ variant.title }} - {{ variant.price | money }}
+            </option>
+          {% endfor %}
+        </select>
+      {% else %}
+        <div class="what-is-it">
+          {% if product.options.first != 'Title' %}
+            <label>{{ product.options.first }}:</label>
+            {% for variant in product.variants %}
+              <span class="it-is">{{ variant.option1 | escape }}</span>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="product-variants"></div><!-- product variants -->
+        <input  type="hidden" id="{{ variant.id }}" name="id" data-sku="{{ variant.sku }}" value="{{ product.variants[0].id }}" />
+      {% endif %}
+    </div>
+
+    {% if type.settings.pf_show_quantity_selector %}
+      <p class="option-label">{{ 'products.product.quantity' | t }}</p>
+      <div class="quantity-selector mb20">
+        <a class="quantity-control-down">-</a>
+        <input type="text" name="quantity" class="product-qty quantity" {% if current_variant.inventory_management == 'shopify' %}{% unless current_variant.inventory_policy == 'continue' %}data-limit="{{ current_variant.inventory_quantity }}"{% endunless %}{% endif %} value="1" style="max-width: 50px; text-align: center; margin: 0 auto 10px; "/>
+        <a class="quantity-control-up">+</a>
+      </div>
+    {% endif %}
+    <div class="product-add clearfix">
+      <input id="addToCart" type="submit" name="button" class="add clearfix mb10 AddtoCart {% if settings.show_payment_button %} secondary-button{% endif %}" value="{{ call_to_action }}" {% unless current_variant.available %}disabled{% endunless %} />
+      {% if settings.show_payment_button %}
+        {{ form | payment_button }}
+      {% endif %}
+    </div>
+    {% unless template == 'product.quick' %}
+    {% if type.settings.pf_show_sticky_cart %}
+      <div id="sticky-cart" data-product-sticky-bar>
+        <div class="product-info">
+          <h4 >{{ product.title }}</h4>
+          <p class="product-price">{{ current_variant.price | money }}</h5>
+        </div>
+        {% for option in product.options_with_values %}
+          {% if product.variants.size > 1 %}
+            {% if current_variant.option1 and forloop.index == 1 %}
+              <div id="current-option-1" class="current-option">
+                <p class="option-label">{{ option.name }}</p>
+                <p class="option-selected">{{ current_variant.option1 }}</p>
+              </div>
+            {% endif %}
+            {% if current_variant.option2 and forloop.index == 2 %}
+              <div id="current-option-2" class="current-option">
+                <p class="option-label">{{ option.name }}</p>
+                <p class="option-selected">{{ current_variant.option2 }}</p>
+              </div>
+            {% endif %}
+            {% if current_variant.option3 and forloop.index == 3 %}
+              <div id="current-option-3" class="current-option">
+                <p class="option-label">{{ option.name }}</p>
+                <p class="option-selected">{{ current_variant.option3 }}</p>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        <div class="product-add">
+          <input id="addToCart" type="submit" name="button" class="sticky-add clearfix mb10 AddtoCart secondary-button" value="{{ call_to_action }}" {% unless current_variant.available %}disabled{% endunless %} />
+        </div>
+      </div>
+    {% endif %}
+    {% endunless %}
+{% endform %}

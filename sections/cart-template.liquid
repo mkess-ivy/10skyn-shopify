@@ -1,0 +1,622 @@
+
+<section id="shopping-cart" data-section-id="{{ section.id }}" data-section-type="cart-page">
+<h1 class="visually-hidden">{{ 'cart.general.title' | t }}</h1>
+{% if cart.item_count > 0 %}
+  <form action="/cart" method="post" id="cartform" class="cart-page-form" novalidate>
+   <div id="cart-title" class="desktop-6 tablet-3 mobile-half">
+     <h4 class="cart-title text-left">{{ 'cart.general.title' | t }} {{ cart.items_subtotal_price | money }}</h4>
+   </div>
+   <div id="cart-count" class="desktop-6 tablet-3 mobile-half">
+     <h4 class="modal-cart-count text-right"><strong>{{ 'cart.general.items_cart_html' | t: cart_count: cart.item_count }}</strong> <span class="mobile-hide">{{ 'cart.general.in_shopping_cart' | t }}</span></h4>
+   </div>
+   <div id="cart-items" class="desktop-12 tablet-6 mobile-3">
+     {% for item in cart.items %}
+       <div id="cart-item-{{ forloop.index }}" class="cart-item" data-line="{{ forloop.index0 }}">
+         <div class="item image">
+           <a href="{{ item.url }}" title="{{ item.product.title | escape }}">
+             {% include "basic-responsive-image" | type: item.image %}
+           </a>
+         </div>
+         <div class="item title">
+           <h4><a href="{{ item.url }}">{{ item.product.title }}</a></h4>
+           {% if settings.vendor %}
+             <p>{{ item.vendor }}</p>
+           {% endif %}
+
+           {% unless item.variant.title contains 'Default' %}
+             <p class="item-properties">
+               {% for option in item.product.options %}
+                 {{ option }}: {{ item.variant.options[forloop.index0] }}<br/>
+               {% endfor %}
+             </p>
+           {% endunless %}
+
+           {% assign property_size = item.properties | size %}
+           {% if property_size > 0 %}
+             {% for p in item.properties %}
+               {% unless p.last == blank %}
+                 {{ p.first }}:
+
+                 {% comment %}
+                 Check if there was an uploaded file associated
+                 {% endcomment %}
+                 {% if p.last contains '/uploads/' %}
+                   <a class="item-properties" href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                 {% else %}
+                   {{ p.last }}
+                 {% endif %}
+
+                 <br>
+               {% endunless %}
+             {% endfor %}
+           {% endif %}
+
+           <div class="quantity-selector">
+             <a class="quantity-adjust quantity-control-down decrease-qty" data-variant="{{ item.variant.id }}" data-line="{{ forloop.index }}">
+               -
+             </a>
+             <input type="text" class="cart-qty quantity" name="updates[]" id="updates_{{ forloop.index }}" data-id="{{ item.key }}" {% if item.variant.inventory_management == 'shopify' %}{% unless item.variant.inventory_policy == 'continue' %}max="{{ item.variant.inventory_quantity }}"{% endunless %}{% endif %} value="{{ item.quantity }}" style="max-width: 50px; text-align: center; margin: 0 auto 10px; "/>
+             <a class="quantity-adjust quantity-control-up increase-qty" data-variant="{{ item.variant.id }}" data-line="{{ forloop.index }}" >
+               +
+             </a>
+           </div>
+         </div>
+         <div class="item price">
+           {% if item.original_price > item.final_price or item.variant.compare_at_price > item.final_price %}
+             <h5 class="cart-line-price" data-key="{{ item.key }}">
+               <span class="item-qty">{{ item.quantity }} x</span> <span class="onsale" style="margin-right: 5px;">{{ item.final_price | money }}</span>
+               <span style="text-decoration: line-through;">
+                 {% if item.original_price > item.final_price %}
+                   {{ item.original_price | money }}
+                 {% elsif item.variant.compare_at_price > item.final_price %}
+                   {{ item.variant.compare_at_price | money }}
+                 {% endif %}
+               </span>
+             </h5>
+           {% else %}
+             <h5 class="cart-line-price" data-key="{{ item.key }}">
+               <span class="item-qty">{{ item.quantity }} x</span> {{ item.final_price | money }}
+                 {% if item.original_price > item.final_price %}
+                  <span style="text-decoration: line-through;">
+                   {{ item.original_price | money }}
+                  </span>
+                 {% elsif item.variant.compare_at_price > item.final_price %}
+                 <span style="text-decoration: line-through;">
+                   {{ item.variant.compare_at_price | money }}
+                 </span>
+                 {% endif %}
+             </h5>
+           {% endif %}
+
+           {% if item.line_level_discount_allocations.size > 0 %}
+             {% for discount_allocation in item.line_level_discount_allocations %}
+             <div class="discounts">
+               <span class="onsale text-left"><i class="fa fa-tag"></i> {{ 'cart.general.discount_applied' | t }}</span>
+               <span class="onsale text-right">{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})</span>
+             </div>
+             {% endfor %}
+           {% endif %}
+
+           <div class="subtotal">
+             <h5 class="mb0">{{ 'cart.general.subtotal' | t }}</h5>
+             <h5 class="cart-final-line-price mb0" data-key="{{item.key}}">
+               <span {% if item.original_price > item.final_price or item.variant.compare_at_price > item.final_price %}class="onsale" style="margin-right: 5px;"{% endif %}>{{ item.final_line_price | money }}</span>
+               {% if item.original_line_price > item.final_line_price %}
+                 <del>{{ item.original_line_price | money }}</del>
+               {% endif %}
+             </h5>
+           </div>
+         </div>
+         <div class="item remove">
+           <a class="remove-product" href="javascript:;" data-line="{{ forloop.index }}">
+             <svg width="14px" height="15px" viewBox="0 0 10 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                 <title>X - delete item</title>
+                 <g id="Hover-Mini-Cart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+                     <g id="Hover-Mini-Cart---with-discounts" transform="translate(-1389.000000, -111.000000)" stroke="#5A5F66">
+                         <g id="Hover-Cart---Light-Copy" transform="translate(1041.000000, 40.000000)">
+                             <g id="X---delete-item" transform="translate(353.000000, 75.000000) rotate(-45.000000) translate(-353.000000, -75.000000) translate(348.000000, 70.000000)">
+                                 <path d="M5,0 L5,10" id="Line"></path>
+                                 <path d="M10,5 L0,5" id="Line-Copy"></path>
+                             </g>
+                         </g>
+                     </g>
+                 </g>
+             </svg>
+           </a>
+         </div>
+       </div>
+     {% endfor %}
+   </div>
+   <div id="cart-notes" class="desktop-7 tablet-4 mobile-3">
+     <ul class="vantage-accordion">
+
+         <li {% unless section.settings.show_cart_note %}style="visibility:hidden;"{% endunless %}class="product-accordion">
+           <a href="#" class="product-accordion-toggle inactive" data-index="">
+             {{ 'cart.general.note' | t }}
+             <svg class="open" width="16px" height="2px" viewBox="0 0 16 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                 <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                     <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1249.000000)" stroke="#222222" stroke-width="2">
+                         <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                             <line x1="360" y1="29" x2="344" y2="29" id="Path-3-Copy"></line>
+                         </g>
+                     </g>
+                 </g>
+             </svg>
+             <svg class="closed" width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                 <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                     <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1433.000000)" stroke="#222222" stroke-width="2">
+                         <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                             <g id="Plus" transform="translate(344.000000, 212.500000)">
+                                 <line x1="8" y1="0" x2="8" y2="16" id="Path-3"></line>
+                                 <line x1="16" y1="8" x2="0" y2="8" id="Path-3-Copy"></line>
+                             </g>
+                         </g>
+                     </g>
+                 </g>
+             </svg>
+           </a>
+           <ul class="product-accordion-content default item-0" style="display: none;">
+             <textarea name="note" id="note" rows="5" cols="60">{{ cart.note }}</textarea>
+           </ul>
+         </li>
+
+       {% for block in section.blocks %}
+         {% if block.type == 'accordion_info' %}
+           <li class="product-accordion">
+             <a href="#" class="product-accordion-toggle inactive" data-index="">
+               {{ block.settings.accordion_heading }}
+               <svg class="open" width="16px" height="2px" viewBox="0 0 16 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                   <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                       <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1249.000000)" stroke="#222222" stroke-width="2">
+                           <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                               <line x1="360" y1="29" x2="344" y2="29" id="Path-3-Copy"></line>
+                           </g>
+                       </g>
+                   </g>
+               </svg>
+               <svg class="closed" width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                   <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                       <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1433.000000)" stroke="#222222" stroke-width="2">
+                           <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                               <g id="Plus" transform="translate(344.000000, 212.500000)">
+                                   <line x1="8" y1="0" x2="8" y2="16" id="Path-3"></line>
+                                   <line x1="16" y1="8" x2="0" y2="8" id="Path-3-Copy"></line>
+                               </g>
+                           </g>
+                       </g>
+                   </g>
+               </svg>
+             </a>
+             <ul class="product-accordion-content item-{{ item_array }} default" style="display: none;">
+               {{ block.settings.accordion_text }}
+             </ul>
+           </li>
+         {% endif %}
+       {% endfor %}
+     </ul>
+   </div>
+   <div id="cart-summary" class="desktop-5 tablet-2 mobile-3">
+     <div class="subtotal">
+       <h5>
+        <span>{{ 'cart.general.subtotal' | t }}</span>
+        <span class="total-price">{{ cart.items_subtotal_price | money }}</span>
+      </h5>
+     </div>
+     <div class="discounts">
+       {% if cart.cart_level_discount_applications != blank %}
+         <p class="onsale">{{ 'cart.general.discounts' | t }}</p>
+         <ul>
+           {% for discount_application in cart.cart_level_discount_applications %}
+             <li class="onsale"><i class="fa fa-tag"></i> {{ discount_application.title }}
+              (-{{ discount_application.total_allocated_amount | money }})</li>
+           {% endfor %}
+           </ul>
+       {% else %}
+         {% if cart.total_discounts > 0 %}
+           <span class="cart-savings onsale">{{ 'cart.general.savings' | t }}</span>
+           <span class="cart-savings-amount onsale">{{ cart.total_discounts | money }}</span>
+         {% endif %}
+       {% endif %}
+     </div>
+     <div class="total">
+       <h4 class="title">{{ 'cart.general.total' | t }} <span class="cart-original-total">{{ cart.total_price | money }}</span> <span class="cart-total"></span></h4>
+     </div>
+     <input type="submit" name="checkout" id="checkout" value="{{ 'cart.general.checkout' | t }}" class="button" />
+     <div class="clear"></div>
+     {% if additional_checkout_buttons %}
+       <div class="additional-checkout-buttons">
+         {{ content_for_additional_checkout_buttons }}
+       </div>
+     {% endif %}
+
+     {% if section.settings.show_payment_methods %}
+       <div class="payment-types">
+         {% for type in shop.enabled_payment_types %}
+           <img src="{{ type | payment_type_img_url }}" />
+         {% endfor %}
+       </div>
+     {% endif %}
+   </div>
+   {% if section.settings.show_sticky_checkout %}
+     <div id="sticky-cart" data-cart-sticky-bar>
+       <div class="cart-total">
+         <h3 class="title">{{ 'cart.general.total' | t }} <span class="cart-original-total">{{ cart.total_price | money }}</span> <span class="cart-total"></span></h3>
+       </div>
+       <div class="cart-details">
+         {% if section.settings.sticky_fine_print != blank %}<p>{{ section.settings.sticky_fine_print }}</p>{% endif %}
+       </div>
+       <div class="cart-checkout">
+         <input type="submit" name="checkout" id="checkout" value="{{ 'cart.general.checkout' | t }}" class="button" />
+       </div>
+     </div>
+   {% endif %}
+</form>
+  {% if section.settings.show_estimate_shipping %}
+    <div id="estimate-shipping" class="desktop-12 tablet-6 mobile-3">
+      <h3>{{ 'cart.general.estimate_shipping' | t }}</h3>
+      {% include "shipping-calculator" %}
+    </div>
+  {% endif %}
+{% else %}
+  <div class="desktop-12 tablet-6 mobile-3">
+    <div class="empty-cart text-center">
+      <h4>{{ 'cart.general.empty' | t }}</h4>
+      <a class="button mt20" href="{{ routes.all_products_collection_url }}">{{ 'cart.general.go_shopping' | t }}</a>
+    </div>
+  </div>
+{% endif %}
+</section>
+{% for block in section.blocks %}
+  {% if block.type == 'customer_service' %}
+    <section id="customer-service" class="desktop-12 tablet-6 mobile-3" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
+      <div class="item image">
+        {% if block.settings.image == blank %}
+        <div class="onboard">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+        {% else %}
+        {% assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+        <img class="lazyload lazyload-fade"
+          id="{{ imageid }}"
+          data-src="{{ img_url }}"
+          data-sizes="auto"
+          alt="{{ block.settings.image.alt | escape }}">
+
+          <noscript>
+            <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.image.alt }}">
+          </noscript>
+        {% endif %}
+      </div>
+      <div class="item info">
+        {% if block.settings.title != blank %}
+          <h3>{{ block.settings.title | escape }}</h3>
+        {% endif %}
+        {% if block.settings.text != blank %}
+          <div class="rte">{{ block.settings.text }}</div>
+        {% endif %}
+        {% if block.settings.button != blank and block.settings.link != blank %}
+          <a href="{{ block.settings.link }}" class="button">
+            {{ block.settings.button | escape }}
+          </a>
+        {% endif %}
+        {% if block.settings.show_info_columns %}
+          <div class="info-columns">
+            {% for n in (1..4) %}
+              {% assign default_icon = "default_icon_" | append: n %}
+              {% assign default_icon = block.settings[default_icon] %}
+              {% assign icon = "icon_" | append: n %}
+              {% assign icon = block.settings[icon] %}
+              {% assign info_title = "info_title_" | append: n %}
+              {% assign info_title = block.settings[info_title] %}
+              <div class="info-column">
+                {% if default_icon == 'shipping_truck' %}
+                  <i class="fa fa-truck"></i>
+                {% elsif default_icon == 'clock' %}
+                  <i class="fa fa-clock-o"></i>
+                {% elsif default_icon == 'credit_card' %}
+                  <i class="fa fa-credit-card-alt"></i>
+                {% elsif default_icon == 'secure_lock' %}
+                  <i class="fa fa-lock"></i>
+                {% elsif default_icon == 'custom' %}
+                  {% unless icon == blank %}
+                    <img src="{{ icon | img_url: '24x' }}" alt="{{ icon.alt }}">
+                  {% endunless %}
+                {% endif %}
+                {% unless info_title == blank %}
+                  <p>{{ info_title }}</p>
+                {% endunless %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
+{% endfor %}
+<style media="screen">
+  {% if section.settings.payment_icon_color %}
+   .payment-types img { filter: grayscale(1); }
+  {% endif %}
+</style>
+{% schema %}
+{
+  "name": "Cart page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_payment_methods",
+      "label":  "Show payment methods",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_icon_color",
+      "label": "Show payment icons in grayscale",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart_note",
+      "label":  "Show cart note",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sticky_checkout",
+      "label": "Show sticky checkout",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sticky_fine_print",
+      "label": "Sticky checkout note or fine print",
+      "default": "Add some fine print about checking out or more payment methods here."
+    },
+    {
+      "type": "header",
+      "content": "Shipping Estimate Calculator"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_estimate_shipping",
+      "label":  "Show shipping calculator",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_calculator_default_country",
+      "label": "Default country",
+      "default": "United States",
+      "info": "If customer is logged-in, their country default shipping address will be selected. If you are not sure about the spelling to use here, refer to the first checkout page."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion_info",
+      "name": "Accordion Info",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_heading",
+          "label": "Accordion Heading",
+          "default": "Frequently Asked Question"
+        },
+        {
+          "type": "richtext",
+          "id": "accordion_text",
+          "label": "Accordion Text",
+          "default": "<p>You the accordion on the cart page to answer common questions a customer may have while checking out in your store.</p>"
+        }
+      ]
+    },
+    {
+       "type":"customer_service",
+       "name":"Customer Service Info",
+       "limit": 1,
+       "settings":[
+         {
+           "type": "image_picker",
+           "id": "image",
+           "label": "Image"
+         },
+         {
+           "type": "text",
+           "id": "title",
+           "label": "Heading",
+           "default": "Customer Service"
+         },
+         {
+           "type": "richtext",
+           "id": "text",
+           "label": "Text",
+           "default": "<p>Have questions about your order? Email our support team at or check out our Help Center.</p>"
+         },
+         {
+           "type": "text",
+           "id": "button",
+           "label": "Button label"
+         },
+         {
+           "type": "url",
+           "id": "link",
+           "label": "Button link"
+         },
+         {
+           "type": "header",
+           "content": "Icon/Info Columns"
+         },
+         {
+           "type": "checkbox",
+           "id": "show_info_columns",
+           "label":  "Show info/icon columns",
+           "default": true
+         },
+        {
+         "type":      "select",
+         "id":        "default_icon_1",
+         "label":     "Use default icon",
+         "options": [
+            {
+             "value": "shipping_truck",
+             "label": "Shipping Truck"
+            },
+            {
+             "value": "credit_card",
+             "label": "Credit Card"
+            },
+            {
+             "value": "secure_lock",
+             "label": "Secure Lock"
+            },
+            {
+             "value": "clock",
+             "label": "Clock"
+           },
+           {
+            "value": "custom",
+            "label": "Custom Icon"
+           }
+          ],
+          "default": "shipping_truck",
+          "info": "Use a built in icon or upload an icon below"
+        },
+         {
+           "type": "image_picker",
+           "id": "icon_1",
+           "label": "Icon 1",
+           "info": "Upload a 24px x 24px transparent png icon"
+         },
+         {
+           "type": "text",
+           "id": "info_title_1",
+           "label": "Title 1",
+           "default": "Free Worldwide Shipping"
+         },
+         {
+          "type":      "select",
+          "id":        "default_icon_2",
+          "label":     "Use default icon",
+          "options": [
+             {
+              "value": "shipping_truck",
+              "label": "Shipping Truck"
+             },
+             {
+              "value": "credit_card",
+              "label": "Credit Card"
+             },
+             {
+              "value": "secure_lock",
+              "label": "Secure Lock"
+             },
+             {
+              "value": "clock",
+              "label": "Clock"
+            },
+            {
+             "value": "custom",
+             "label": "Custom Icon"
+            }
+           ],
+           "default": "credit_card",
+           "info": "Use a built in icon or upload an icon below"
+         },
+         {
+           "type": "image_picker",
+           "id": "icon_2",
+           "label": "Icon 2",
+           "info": "Upload a 24px x 24px transparent png icon"
+         },
+         {
+           "type": "text",
+           "id": "info_title_2",
+           "label": "Title 2",
+           "default": "60-day Exchanges & Returns"
+         },
+         {
+          "type":      "select",
+          "id":        "default_icon_3",
+          "label":     "Use default icon",
+          "options": [
+             {
+              "value": "shipping_truck",
+              "label": "Shipping Truck"
+             },
+             {
+              "value": "credit_card",
+              "label": "Credit Card"
+             },
+             {
+              "value": "secure_lock",
+              "label": "Secure Lock"
+             },
+             {
+              "value": "clock",
+              "label": "Clock"
+            },
+            {
+             "value": "custom",
+             "label": "Custom Icon"
+            }
+             ],
+             "default": "clock",
+             "info": "Use a built in icon or upload an icon below"
+         },
+         {
+           "type": "image_picker",
+           "id": "icon_3",
+           "label": "Icon 3",
+           "info": "Upload a 24px x 24px transparent png icon"
+         },
+         {
+           "type": "text",
+           "id": "info_title_3",
+           "label": "Title 3",
+           "default": "24 / 7 Customer Support"
+         },
+         {
+          "type":      "select",
+          "id":        "default_icon_4",
+          "label":     "Use default icon",
+          "options": [
+             {
+              "value": "shipping_truck",
+              "label": "Shipping Truck"
+             },
+             {
+              "value": "credit_card",
+              "label": "Credit Card"
+             },
+             {
+              "value": "secure_lock",
+              "label": "Secure Lock"
+             },
+             {
+              "value": "clock",
+              "label": "Clock"
+            },
+            {
+             "value": "custom",
+             "label": "Custom Icon"
+            }
+           ],
+           "default": "secure_lock",
+           "info": "Use a built in icon or upload an icon below"
+         },
+         {
+           "type": "image_picker",
+           "id": "icon_4",
+           "label": "Icon 4",
+           "info": "Upload a 24px x 24px transparent png icon"
+         },
+         {
+           "type": "text",
+           "id": "info_title_4",
+           "label": "Title 4",
+           "default": "100% Secure Checkout"
+         }
+       ]
+    }
+  ]
+}
+{% endschema %}

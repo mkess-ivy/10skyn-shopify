@@ -1,0 +1,40 @@
+<div class="product-main-images desktop-12">
+  {% for image in product.images %}
+    {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+
+    <div class="product-main-image {% if forloop.first %}selected{% endif %}">
+      <img id="{{ product.id }}" class="product__image lazyload"
+        src="{{ image | product_img_url: '300x' }}"
+        data-srcset="{{ img_url }}"
+        data-widths="[180, 220, 300, 360, 460, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+        data-sizes="auto"
+        data-image-id="{{ image.id }}"
+        alt="{{ image.alt | escape }}">
+
+      <noscript>
+        <img id="{{ product.id }}" class="product-main-image" data-image-id="{{ image.id }}" src="{{ image | product_img_url: '800x' }}" alt='{{ image.alt | escape }}'/>
+      </noscript>
+    </div>
+  {% endfor %}
+</div>
+
+{% if product.images.size > 1 %}
+  <div class="qvimages">
+    {% for image in product.images %}
+      {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+
+      <div class="product-thumbnail {% if forloop.first %}selected{% endif %} desktop-3 mobile-3" data-image-id="{{ image.id }}">
+        <img class="lazyload"
+          src="{{ image | product_img_url: '100x' }}"
+          data-srcset="{{ img_url }}"
+          data-widths="[180, 220, 300, 360, 460, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+          data-sizes="auto"
+          alt="{{ image.alt | escape }}">
+
+        <noscript>
+          <img class="product-thumbnail" src="{{ image | product_img_url: '100x' }}" alt="{{ image.alt | escape }}" />
+        </noscript>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

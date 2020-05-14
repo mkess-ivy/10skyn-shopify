@@ -1,0 +1,608 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="product-page product-template clearfix" id="product-{{ product.id }}"
+  data-product-id="{{ product.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="product-section">
+
+  <meta itemprop="url" content="{{ routes.root_url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_media.media | img_url: '1024x1024' }}">
+
+  {% include 'product-json' %}
+
+  {% assign gallery_full = false %}
+
+  {% if section.settings.pf_gallery_style == 'full_width' and product.media.size >= 3 %}
+    {% if template contains 'product.quick' %}
+      {% assign gallery_style = 'data-gallery-thumbnails' %}
+    {% else %}
+      {% assign gallery_style = 'data-gallery-fullwidth' %}
+      {% assign gallery_full = true %}
+    {% endif %}
+  {% else %}
+    {% assign gallery_style = 'data-gallery-thumbnails' %}
+  {% endif %}
+
+  {% if template == 'product.quick' %}
+    {% assign thumbnail_position = settings.thumbnail_position %}
+    {% assign click_to_enlarge = settings.click_to_enlarge %}
+    {% assign enable_video_looping = settings.enable_video_looping %}
+    {% capture product_gallery_config %}{
+      "thumbPosition": {{ settings.thumbnail_position | json }},
+      "enableVideoLooping": {{ settings.enable_video_looping | json }},
+      "mainSlider": {% if product.media.size <= 1 %}false{% else %}true{% endif %},
+      "thumbSlider": {% if product.media.size >= 4 %}true{% else %}false{% endif %},
+      "productId": {{ product.id | json }},
+      "isQuick": true
+   }{% endcapture %}
+  {% else %}
+    {% assign thumbnail_position = section.settings.thumbnail_position %}
+    {% assign click_to_enlarge = section.settings.click_to_enlarge %}
+    {% assign enable_video_looping = section.settings.enable_video_looping %}
+    {% capture product_gallery_config %}{
+      "thumbPosition": {{ section.settings.thumbnail_position | json }},
+      "enableVideoLooping": {{ section.settings.enable_video_looping | json }},
+      "mainSlider": {% if product.media.size <= 1 %}false{% else %}true{% endif %},
+      "thumbSlider": {% if product.media.size >= 4 %}true{% else %}false{% endif %},
+      "productId": {{ product.id | json }},
+      "isQuick": false
+   }{% endcapture %}
+  {% endif %}
+
+  {% capture 'layout_images' %}
+  <div id="product-photos" {{ gallery_style }} class="product-photos carousel-container" data-product-single-media-group data-gallery-config='{{ product_gallery_config }}'>
+      {% if product.featured_media %}
+       {% if gallery_style == 'data-gallery-thumbnails' %}
+        {% include 'product-image-gallery' %}
+       {% else %}
+        {% include 'product-full-gallery' %}
+       {% endif %}
+      {% else %}
+        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+        {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+  {% endcapture %}
+
+  {% capture 'layout_form' %}
+
+   {% capture product_form_config %}
+    { "money_format": {{ shop.money_format | json }},
+      "enable_history": true,
+      "sold_out": {{ "products.product.sold_out" | t | json }},
+      "button": {{ 'products.product.add_to_cart' | t | json }},
+      "unavailable": {{ 'products.product.unavailable' | t | json }},
+      "quickview": {% if template == 'product.quick' %}true{% else %}false{% endif %}
+    }
+    {% endcapture %}
+    {% include 'product-form' type: section %}
+
+  {% endcapture %}
+
+  {% capture 'layout_accordion' %}
+    <div class="accordion">
+      {% unless template == 'product.quick' %}
+        <ul class="product-details vantage-accordion" data-product-details>
+          <li class="product-accordion">
+            <a href="#" class="product-accordion-toggle" data-index="">
+              {{ 'products.product.product_description' | t }}
+              <svg class="open" width="16px" height="2px" viewBox="0 0 16 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1249.000000)" stroke="#222222" stroke-width="2">
+                          <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                              <line x1="360" y1="29" x2="344" y2="29" id="Path-3-Copy"></line>
+                          </g>
+                      </g>
+                  </g>
+              </svg>
+              <svg class="closed" width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1433.000000)" stroke="#222222" stroke-width="2">
+                          <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                              <g id="Plus" transform="translate(344.000000, 212.500000)">
+                                  <line x1="8" y1="0" x2="8" y2="16" id="Path-3"></line>
+                                  <line x1="16" y1="8" x2="0" y2="8" id="Path-3-Copy"></line>
+                              </g>
+                          </g>
+                      </g>
+                  </g>
+              </svg>
+            </a>
+            <ul class="product-accordion-content first">
+              <div class="rte">
+                {{ product.description | split: '<!-- split -->' | first }}
+              </div>
+            </ul>
+          </li>
+
+          {% unless section.blocks.size == 0 %}
+            {% for block in section.blocks %}
+              {% if block.type == 'page' %}
+                {% assign acc_page = pages[block.settings.page] %}
+                <li id="{{ block.id }}" class="{{ forloop.index }}-accordion product-accordion" {{ block.shopify_attributes }}>
+                  <a class="product-accordion-toggle inactive" href="#{{ block.id }}" data-index="">
+                    {{ acc_page.title }}
+                    <svg class="open" width="16px" height="2px" viewBox="0 0 16 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1249.000000)" stroke="#222222" stroke-width="2">
+                                <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                                    <line x1="360" y1="29" x2="344" y2="29" id="Path-3-Copy"></line>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <svg class="closed" width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1433.000000)" stroke="#222222" stroke-width="2">
+                                <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                                    <g id="Plus" transform="translate(344.000000, 212.500000)">
+                                        <line x1="8" y1="0" x2="8" y2="16" id="Path-3"></line>
+                                        <line x1="16" y1="8" x2="0" y2="8" id="Path-3-Copy"></line>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                  </a>
+                  <ul class="product-accordion-content">
+                    <li>
+                      <div class="rte">
+                        <p>{{ acc_page.content }}</p>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              {% elsif block.type == 'reviews' %}
+                <li id="{{ block.id }}" class="{{ forloop.index }}-accordion product-accordion" {{ block.shopify_attributes }}>
+                  <a class="product-accordion-toggle inactive" href="#{{ block.id }}" data-index="">
+                    {{ block.settings.product_review_title }}
+                    <svg class="open" width="16px" height="2px" viewBox="0 0 16 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1249.000000)" stroke="#222222" stroke-width="2">
+                                <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                                    <line x1="360" y1="29" x2="344" y2="29" id="Path-3-Copy"></line>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <svg class="closed" width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1433.000000)" stroke="#222222" stroke-width="2">
+                                <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                                    <g id="Plus" transform="translate(344.000000, 212.500000)">
+                                        <line x1="8" y1="0" x2="8" y2="16" id="Path-3"></line>
+                                        <line x1="16" y1="8" x2="0" y2="8" id="Path-3-Copy"></line>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                  </a>
+                  <ul class="product-accordion-content">
+                    <li>
+                      <div id="shopify-product-reviews" data-id="{{product.id}}">
+                        {{ product.metafields.spr.reviews }}
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% endunless %}
+
+          {% if section.settings.pf_show_product_type or settings.vendor or section.settings.pf_show_product_collection or section.settings.pf_show_sku or  section.settings.pf_show_product_inventory or section.settings.pf_show_product_weight %}
+            <li class="product-accordion">
+              <a href="#" class="product-accordion-toggle inactive" data-index="">
+                {{ 'products.product.product_details' | t }}
+                <svg class="open" width="16px" height="2px" viewBox="0 0 16 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1249.000000)" stroke="#222222" stroke-width="2">
+                            <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                                <line x1="360" y1="29" x2="344" y2="29" id="Path-3-Copy"></line>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                <svg class="closed" width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1433.000000)" stroke="#222222" stroke-width="2">
+                            <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                                <g id="Plus" transform="translate(344.000000, 212.500000)">
+                                    <line x1="8" y1="0" x2="8" y2="16" id="Path-3"></line>
+                                    <line x1="16" y1="8" x2="0" y2="8" id="Path-3-Copy"></line>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+              </a>
+              <ul class="product-accordion-content view-more">
+                  {% assign current_variant =  product.selected_or_first_available_variant %}
+                  {% if current_variant.title != 'Default Title' %}
+                    <li class="detail-item"><strong>{{ 'products.product.variant' | t }}:</strong> <span class="variant_selected">{{ current_variant.title }}</span></li>
+                  {% endif %}
+                  {% if section.settings.pf_show_sku %}
+                    <li class="detail-item"><strong>{{ 'customer.order.details.sku' | t }}:</strong> <span class="variant_sku">{{ current_variant.sku }}</span></li>
+                  {% endif %}
+                  {% if section.settings.pf_show_product_inventory %}
+                    <li class="detail-item"><strong>{{ 'products.product.inventory' | t }}:</strong> <span class="variant_inventory">{{ current_variant.inventory_quantity }}</span></li>
+                  {% endif %}
+                  {% if section.settings.pf_show_product_weight %}
+                    <li class="detail-item"><strong>{{ 'products.product.weight' | t }}:</strong> <span class="variant_weight">{{ current_variant.weight | weight_with_unit: current_variant.weight_unit }}</span></li>
+                  {% endif %}
+                  {% if section.settings.pf_show_product_type %}
+                    <li class="detail-item"><strong>{{ 'products.product.product_type' | t }}:</strong> {{ product.type | link_to_type }}</li>
+                  {% endif %}
+                  {% if settings.vendor %}
+                    <li class="detail-item"><strong>{{ 'products.product.brand' | t }}:</strong> {{ product.vendor | link_to_vendor }}</li>
+                  {% endif %}
+                  {% if section.settings.pf_show_product_collection and collection %}
+                    <li class="detail-item"><strong>{{ 'products.product.collection' | t }}:</strong> {% capture url %}/collections/{{ collection.handle }}{% endcapture %}{{ collection.title | link_to: url }}</li>
+                  {% endif %}
+                </ul>
+            </li>
+          {% endif %}
+
+        </ul>
+      {% endunless %}
+      {% if section.settings.pf_show_social_share %}
+        <div id="soc">
+          {% include 'social' with product %}
+        </div>
+      {% endif %}
+    </div>
+  {% endcapture %}
+
+  {% if gallery_full %}
+    {{ layout_images }}
+    <div class="product-bottom">
+      <div class="accordion desktop-4 desktop-push-2 tablet-3 mobile-3">
+        {{ layout_accordion }}
+      </div>
+      <div class="form desktop-6 tablet-push-1 tablet-2 mobile-3">
+        {{ layout_form }}
+      </div>
+    </div>
+  {% else %}
+    <div class="desktop-6 tablet-3 mobile-3">
+      {{ layout_images }}
+    </div>
+    <div class="product-bottom desktop-6 tablet-3 mobile-3">
+      {{ layout_form }}
+      {{ layout_accordion }}
+    </div>
+  {% endif %}
+
+  {% unless template == 'product.quick' %}
+    {% if product.description contains '<!-- split -->' %}
+      <div id="split-description" class="desktop-12 tablet-6 mobile-3">
+        <h4 class="section-title">
+          {{ 'products.product.product_more_details' | t }}
+        </h4>
+        <div class="rte">
+          {{ product.description | split: '<!-- split -->' | last }}
+        </div>
+      </div>
+    {% endif %}
+  {% endunless %}
+
+
+{% if section.settings.full_image_count == 2 %}
+  {% assign item_width = '50%' %}
+{% elsif section.settings.full_image_count == 3 %}
+  {% assign item_width = '33.33333%' %}
+{% elsif section.settings.full_image_count == 4 %}
+  {% assign item_width = '25%' %}
+{% elsif section.settings.full_image_count == 5 %}
+  {% assign item_width = '20%' %}
+{% elsif section.settings.full_image_count == 6 %}
+  {% assign item_width = '16.666%' %}
+{% endif %}
+  <style media="screen">
+    div#thumbnail-gallery li img {
+      cursor: pointer;
+    }
+    {% if gallery_full %}
+      .product #content {
+        width: 100% !important;
+        margin: 0 auto;
+      }
+      #product-images {
+        padding: 0;
+        margin-bottom: 63px;
+      }
+
+      div#main-image-gallery .flickity-button:focus {
+        outline: {{ settings.keyboard_focus }} {{ settings.focus_border_style }} {{ settings.focus_border_weight }}px !important;
+        outline-offset: -{{ settings.focus_border_weight }}px !important;
+        overflow: hidden;
+      }
+      div#main-image-gallery .carousel li {
+        margin-right: {{ section.settings.full_margin }}px;
+      }
+
+      div#main-image-gallery .carousel-cell {
+        width: {{ item_width }} !important;
+      }
+      div#main-image-gallery .flickity-page-dots {
+        position: relative;
+        width: 100%;
+        bottom: 0;
+        padding: 0;
+        list-style: none;
+        text-align: center;
+        line-height: 1;
+        margin-top: 10px;
+        margin-bottom: 60px;
+      }
+      @media (min-width: 980px) {
+        .product-bottom .accordion { padding-right: 20px;}
+        .product-bottom .form { padding-left: 20px;}
+      }
+      @media only screen and (max-width: 740px) {
+        .flickity-prev-next-button {
+          left: 55px;
+        }
+        .product-photos .flickity-prev-next-button {
+          top: 27px;
+          right: unset;
+        }
+        .flickity-prev-next-button.previous {
+          left: 5px;
+        }
+      }
+      .product-bottom {
+        display: flex;	display: -ms-flexbox;
+      	display: -webkit-flex;
+      	display: flex;
+        flex-wrap: wrap;
+      }
+      .product-bottom > div:first-child {
+        order: 1;
+      }
+      .product-bottom > div:last-child {
+        order: 2;
+      }
+      li.product-slide.slide_image {
+        border: 1px solid transparent;
+      }
+      li.product-slide.slide_image.flex-active-slide {
+        border: 1px solid {{ settings.accent_color }};
+      }
+      .product .product-bottom, #shopify-section-product-recommendations { margin: 0 auto; }
+      @media screen and (min-width: 1680px) {
+        .product .product-bottom, #shopify-section-product-recommendations { width: 1400px; }
+      }
+      @media screen and (max-width: 1679px) {
+        .product .product-bottom, #shopify-section-product-recommendations { width: 1200px; }
+      }
+      @media screen and (max-width: 1220px) {
+        .product .product-bottom, #shopify-section-product-recommendations { width: 960px; }
+      }
+      @media screen and (max-width: 980px) {
+        .product .product-bottom, #shopify-section-product-recommendations { width: 720px; }
+        li.product-slide.slide_image {
+          border: none;
+        }
+        li.product-slide.slide_image.flex-active-slide {
+          border: none;
+        }
+      }
+      @media screen and (max-width: 740px) {
+        .product .product-bottom, #shopify-section-product-recommendations { width: 480px; }
+        .product-bottom > div:first-child {
+          order: 2;
+        }
+        .product-bottom > div:last-child {
+          order: 1;
+          width: 100% !important;
+        }
+        input#addToCart, .shopify-payment-button__button--unbranded, .shopify-payment-button {
+          width: 100% !important;
+        }
+      }
+      @media screen and (max-width: 500px) {
+        .product-bottom > div:first-child {
+          order: 2;
+        }
+        .product-bottom > div:last-child {
+          order: 1;
+        }
+        .product .product-bottom, #shopify-section-product-recommendations { width: 96%; }
+      }
+    {% endif %}
+
+    {% if template == 'product.quick' %}
+      #thumb-slider-wrapper .product-single__thumbnails-item img {
+        width: 65px !important;
+        height: 65px !important;
+      }
+    {% endif %}
+
+    {% if section.settings.thumbnail_position == 'bottom' %}
+      #product-{{ product.id }} .thumb-slider-slides {
+        transition: left 0.5s ease-in-out;
+      }
+    {% else %}
+      #product-{{ product.id }} .thumb-slider-slides {
+        transition: top 0.5s ease-in-out;
+      }
+    {% endif %}
+
+    {% if thumbnail_position == 'left' %}
+      .product-main-images {
+        float: right !important;
+      }
+    {% endif %}
+
+
+  </style>
+</div>
+<script type="application/json" id="ModelJson-{{ section.id }}">
+  {{ product.media | where: 'media_type', 'model' | json }}
+</script>
+{% schema %}
+{
+    "name": "Product page",
+	  "max_blocks":5,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product Form"
+      },
+      {
+        "type": "checkbox",
+        "id": "pf_show_quantity_selector",
+        "label": "Show quantity selector",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "pf_show_sticky_cart",
+        "label": "Show sticky add to cart",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Media"
+      },
+      {
+        "type": "select",
+        "id": "pf_gallery_style",
+        "label": "Gallery style",
+        "default": "thumbnails",
+        "info": "When product has less than three photos it will show gallery w/thumbnails.",
+        "options": [
+          {
+            "value": "thumbnails",
+            "label": "Thumbnails"
+          },
+          {
+            "value": "full_width",
+            "label": "Full width"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "thumbnail_position",
+        "label": "Thumbnail position",
+        "info":"Only when gallery style is set to Thumbnails",
+        "options": [
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "full_image_count",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "label": "Images shown when full width",
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "full_margin",
+        "min": 0,
+        "max": 80,
+        "unit": "px",
+        "step": 1,
+        "label": "Image spacing when full width",
+        "default": 24
+      },
+      {
+        "type": "checkbox",
+        "id": "click_to_enlarge",
+        "label": "Enable click to enlarge",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": false
+      },
+      {
+        "type": "paragraph",
+        "content": "Learn more about [Media types](https:\/\/help.shopify.com/en\/manual\/products\/product-media\)"
+      },
+      {
+        "type": "header",
+        "content": "Product Details"
+      },
+      {
+        "type": "checkbox",
+        "id": "pf_show_product_inventory",
+        "label": "Show product inventory",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "pf_show_product_weight",
+        "label": "Show product weight",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "pf_show_product_type",
+        "label": "Show product type",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "pf_show_sku",
+        "label": "Show variant SKU",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "pf_show_product_collection",
+        "label": "Show product collection",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "pf_show_social_share",
+        "label": "Show social share icons",
+        "default": true
+      }
+    ],
+	"blocks":[
+    {
+      "type":"page",
+         "name":"Page",
+         "settings":[
+          {
+            "type": "page",
+            "id": "page",
+            "label": "Show content from"
+          }
+         ]
+      },
+      {
+         "type":"reviews",
+         "name":"Reviews",
+         "settings":[
+            {
+              "type": "text",
+              "id": "product_review_title",
+              "label": "Reviews",
+			        "info": "You will need to add the free [Shopify reviews app](https:\/\/apps.shopify.com/product-reviews) to your store "
+            }
+         ]
+      }
+   ]
+  }
+{% endschema %}
