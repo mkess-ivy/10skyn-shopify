@@ -4994,7 +4994,7 @@
   },
   "current": {
     "favicon": "shopify:\/\/shop_images\/favicon.png",
-    "main_font": "open_sans_n4",
+    "main_font": "open_sans_n3",
     "nav_font": "open_sans_n4",
     "heading_font": "prata_n4",
     "font_size": 16,
@@ -5004,7 +5004,7 @@
     "h4_size": 24,
     "h5_size": 20,
     "nav_size": 18,
-    "section_title_border": "bottom-only-short",
+    "section_title_border": "none",
     "heading_border_weight": 3,
     "announcement_bar_background": "#cca9de",
     "announcement_bar_text_color": "#1d1d1d",
@@ -5052,13 +5052,13 @@
     "swatch_selected_color": "#ffffff",
     "swatch_selected_background": "#030000",
     "swatch_selected_border": "#000000",
-    "footer_background": "#1d1d1d",
-    "footer_border_color": "#cccccc",
-    "footer_header_color": "#ffffff",
-    "footer_text_color": "#ffffff",
+    "footer_background": "#e1dad0",
+    "footer_border_color": "#1d1d1d",
+    "footer_header_color": "#1d1d1d",
+    "footer_text_color": "#1d1d1d",
     "icon_color": "#ffffff",
     "animation": "fadeIn",
-    "index_padding": 60,
+    "index_padding": 100,
     "ajax_cart_method": "mini",
     "quickview": false,
     "quick_show_payment_button": true,
@@ -5456,32 +5456,40 @@
             "type": "text",
             "settings": {
               "title": "About",
-              "footer_text": "<p>Share store information with your customers<\/p>"
+              "footer_text": "<p>We are a beauty brand based in Baltimore, Maryland. Established in 2009, we provide a list of services and products that focus on healthy skincare maintenance.<\/p>"
             }
           },
           "1488477131265": {
             "type": "menu",
             "settings": {
               "footer_nav": "footer",
-              "title": "Menu"
+              "title": "Book"
             }
           },
           "1488477017392": {
             "type": "social",
             "settings": {
-              "title": "Join us",
-              "mailing_subheading": "<p>News and updates to your inbox<\/p>"
+              "title": "Subscribe",
+              "mailing_subheading": "<p>Be the first to hear about our new products, exclusive offers, and insider tips - straight to your inbox.<\/p>"
+            }
+          },
+          "1589324015891": {
+            "type": "menu",
+            "settings": {
+              "footer_nav": "footer",
+              "title": "Info"
             }
           }
         },
         "block_order": [
           "1500325569641",
           "1488477131265",
+          "1589324015891",
           "1488477017392"
         ],
         "settings": {
           "text_alignment": "left",
-          "header_size": 18,
+          "header_size": 22,
           "show_credit_cards": true,
           "payment_icon_color": true,
           "show_copyright": true,
@@ -5762,6 +5770,7 @@
       },
       "1520966456598": {
         "type": "featured-collection",
+        "disabled": true,
         "settings": {
           "heading": "Accessorize with Style",
           "heading_color": "#333333",
@@ -5807,6 +5816,7 @@
       },
       "1522962079457": {
         "type": "image-carousel-with-text",
+        "disabled": true,
         "blocks": {
           "1522962079457-0": {
             "type": "image",
@@ -5833,6 +5843,7 @@
       },
       "1522962140184": {
         "type": "image-carousel-with-text",
+        "disabled": true,
         "blocks": {
           "1522962140184-0": {
             "type": "image",
@@ -6107,13 +6118,13 @@
           "1588966715169-0": {
             "type": "featured_collection",
             "settings": {
-              "featured_collection": "",
+              "featured_collection": "lash-extensions",
               "collection_image": "shopify:\/\/shop_images\/home-collection-img.jpg",
               "header_text_color": "#000000",
               "description_text": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
               "des_bg_color": "#84c5c3",
               "paragraph_text_color": "#000000",
-              "featured_product": "",
+              "featured_product": "brows",
               "product_title_color": "#000000",
               "product_title_bg": "#ffffff",
               "link_bg_color": "#edddd3",
