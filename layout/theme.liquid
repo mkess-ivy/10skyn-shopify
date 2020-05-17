@@ -24,6 +24,8 @@
 
   {{ 'stylesheet.css' | asset_url | stylesheet_tag }}
   {{ 'queries.css' | asset_url | stylesheet_tag }}
+  {{ 'frow.min.css' | asset_url | stylesheet_tag }}
+  {{ 'custom.css' | asset_url | stylesheet_tag }}
 
   <!--[if lt IE 9]>
 	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -73,8 +75,9 @@
 
      {% else %}
 
+    {% section 'page-custom-two' %}
      <div id="content" class="row">
-       {% include 'breadcrumb' %}
+       {% comment %} {% include 'breadcrumb' %} {% endcomment %}
        {{ content_for_layout }}
      </div>
     {% endif %}

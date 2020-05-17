@@ -1,0 +1,41 @@
+<div class="clear"></div>
+<section class="faqs">
+    <h2 class="faqs-title">{{ section.settings.faqs_name }}</h2>
+    {% for block in section.blocks %}
+    <div class="faqs-single">
+        <div class="faqs-q">{{ block.settings.faqs_question }}</div>
+        <div class="faqs-a">{{ block.settings.faqs_answer }}</div>
+    </div>
+    {% endfor %}
+</section>
+
+{% schema %}
+{
+    "name": "FAQs Pt II",
+    "settings": [
+        {
+            "type": "text",
+            "id": "faqs_name",
+            "label": "FAQs Title"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "component",
+            "name": "FAQs",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "faqs_question",
+                    "label": "FAQ Question"
+                },
+                {
+                    "type": "textarea",
+                    "id": "faqs_answer",
+                    "label": "FAQ Answer"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

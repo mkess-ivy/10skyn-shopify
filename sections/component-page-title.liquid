@@ -1,0 +1,24 @@
+<section>
+  <div>{{ section.settings.section_name }}</div>
+  <div>{{ section.settings.section_description }}</div>
+</section>
+{% schema %}
+{
+    "name": "Section Title",
+    "settings": [
+        {
+            "type": "text",
+            "id": "section_name",
+            "label": "Name of Section",
+            "default": "10Skyn Essentials"
+
+        },
+        {
+            "type": "text",
+            "id": "section_description",
+            "label": "Section Description",
+            "default": "This is a section description"
+        }
+    ]
+}
+{% endschema %}

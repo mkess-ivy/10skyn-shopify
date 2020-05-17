@@ -1,20 +1,54 @@
 <div class="clear"></div>
 <section class="ntk">
-    <h2>{{ collection.metafields.ntk-section.ntk-name }}</h2>
+    <h2>{{ section.settings.ntk_name }}</h2>
     <div class="ntk-wrapper">
         <div class="frow justify-start">
+        {% for block in section.blocks %}
             <div class="ntk-option">
-                <div class="ntk-option-title">{{ collection.metafields.ntk-option.ntk-option-title1 }}</div>
-                <div class="ntk-option-desc">{{ collection.metafields.ntk-option.ntk-option-desc1 }}</div>
-            </div> 
-            <div class="ntk-option">
-                <div class="ntk-option-title">{{ collection.metafields.ntk-option.ntk-option-title2 }}</div>
-                <div class="ntk-option-desc">{{ collection.metafields.ntk-option.ntk-option-desc2}}</div>
-            </div> 
-            <div class="ntk-option">
-                <div class="ntk-option-title">{{ collection.metafields.ntk-option.ntk-option-title3 }}</div>
-                <div class="ntk-option-desc">{{ collection.metafields.ntk-option.ntk-option-desc3 }}</div>
-            </div> 
+                <div class="ntk-icon">
+                    <img src="{{ block.settings.ntk_icon | img_url: "medium" }}" />
+                </div>
+                <div class="ntk-option-title">{{ block.settings.item_title }}</div>
+                <div class="ntk-option-desc">{{ block.settings.item_description }}</div>
+            </div>
+        {% endfor %} 
         </div>  
     </div>
 </section>
+
+{% schema %}
+{
+    "name": "Need to Know",
+    "settings": [
+        {
+            "type": "text",
+            "id": "ntk_name",
+            "label": "Need to Know Name",
+            "default": "Need to Know"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "component",
+            "name": "NTK",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "ntk_icon",
+                    "label": "NTK Icon"
+                },
+                {
+                    "type": "text",
+                    "id": "item_title",
+                    "label": "Item Title"
+                },
+                {
+                    "type": "textarea",
+                    "id": "item_description",
+                    "label": "Item Description"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
