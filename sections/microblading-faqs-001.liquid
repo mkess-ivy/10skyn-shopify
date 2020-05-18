@@ -1,0 +1,41 @@
+<div class="clear"></div>
+<section class="faqs">
+    <h2 class="faqs-title">{{ section.settings.microblading_faqs_name_001 }}</h2>
+    {% for block in section.blocks %}
+    <div class="faqs-single">
+        <div class="faqs-q">{{ block.settings.microblading_faqs_question }}</div>
+        <div class="faqs-a">{{ block.settings.microblading_faqs_answer }}</div>
+    </div>
+    {% endfor %}
+</section>
+
+{% schema %}
+{
+    "name": "Microblading FAQs 001",
+    "settings": [
+        {
+            "type": "text",
+            "id": "microblading_faqs_name_001",
+            "label": "Microblading FAQs Title 001"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "component",
+            "name": "Microblading FAQs 001",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "microblading_faqs_question",
+                    "label": "Microblading Question"
+                },
+                {
+                    "type": "textarea",
+                    "id": "microblading_faqs_answer",
+                    "label": "Microblading Answer"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

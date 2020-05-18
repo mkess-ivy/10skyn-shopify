@@ -1,0 +1,24 @@
+<section>
+  <div>{{ section.settings.microblading_section_name }}</div>
+  {% if section.settings.microblading_section_description %}
+    <div>{{ section.settings.microblading_section_description }}</div>
+  {% endif %}
+</section>
+{% schema %}
+{
+    "name": "Microblading Page Title",
+    "settings": [
+        {
+            "type": "text",
+            "id": "microblading_section_name",
+            "label": "Microblading Section Title"
+
+        },
+        {
+            "type": "textarea",
+            "id": "microblading_section_description",
+            "label": "Microblading Section Description"
+        }
+    ]
+}
+{% endschema %}
