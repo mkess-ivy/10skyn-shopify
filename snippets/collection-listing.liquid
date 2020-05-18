@@ -1,0 +1,14 @@
+<div class="featured-collections">
+  <div class="frow justify-start">
+    {% for link in collection-listing %}
+    <div class="collection-thumb">
+      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
+      <h3 class="collection-thumb-title">
+        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
+      </h3>
+      {{ link.object.price | money }}<br/>
+      <p>Book Now</p>
+    </div>
+  {% endfor %}
+  </div>
+</div>

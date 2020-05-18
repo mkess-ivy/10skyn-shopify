@@ -1,0 +1,24 @@
+<section>
+  <div>{{ section.settings.waxing_section_name_002 }}</div>
+  {% if section.settings.waxing_section_description_002 %}
+    <div>{{ section.settings.waxing_section_description_002 }}</div>
+  {% endif %}
+</section>
+{% schema %}
+{
+    "name": "Waxing Page Title 002",
+    "settings": [
+        {
+            "type": "text",
+            "id": "waxing_section_name_002",
+            "label": "Waxing Section Title Two"
+
+        },
+        {
+            "type": "text",
+            "id": "waxing_section_description_002",
+            "label": "Waxing Section Description Two"
+        }
+    ]
+}
+{% endschema %}

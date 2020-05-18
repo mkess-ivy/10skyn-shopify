@@ -1,0 +1,41 @@
+{% section 'waxing-section-one' %}
+
+<div class="featured-collections">
+  <div class="frow justify-start">
+    {% for link in linklists.bikini-facial-waxing.links %}
+    <div class="collection-thumb">
+      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
+      <h3 class="collection-thumb-title">
+        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
+      </h3>
+      {{ link.object.price | money }}<br/>
+      <p>Book Now</p>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% render 'spacer', height: '35'%}
+
+{% section 'waxing-section-two' %}
+
+<div class="featured-collections">
+  <div class="frow justify-start">
+    {% for link in linklists.body-waxing.links %}
+    <div class="collection-thumb">
+      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
+      <h3 class="collection-thumb-title">
+        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
+      </h3>
+      {{ link.object.price | money }}<br/>
+      <p>Book Now</p>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% section 'waxing-faqs-001' %}
+
+{% section 'waxing-faqs-002' %}
+
+{% section 'component-book-cta' %}
