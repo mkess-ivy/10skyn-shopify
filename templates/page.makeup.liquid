@@ -1,0 +1,53 @@
+{% section 'makeup-section-001' %}
+
+<div class="featured-collections">
+  <div class="frow justify-start">
+    {% for link in linklists.iconic-makeup-list.links %}
+    <div class="collection-thumb">
+      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
+      <h3 class="collection-thumb-title">
+        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
+      </h3>
+      {{ link.object.price | money }}<br/>
+      <p>Book Now</p>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% section 'makeup-section-002' %}
+
+<div class="featured-collections">
+  <div class="frow justify-start">
+    {% for link in linklists.bridal-makeup-links.links %}
+    <div class="collection-thumb">
+      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
+      <h3 class="collection-thumb-title">
+        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
+      </h3>
+      {{ link.object.price | money }}<br/>
+      <p>Book Now</p>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% section 'makeup-section-003' %}
+
+<div class="featured-collections">
+  <div class="frow justify-start">
+    {% for link in linklists.brows-links.links %}
+    <div class="collection-thumb">
+      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
+      <h3 class="collection-thumb-title">
+        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
+      </h3>
+      {{ link.object.price | money }}<br/>
+      <p>Book Now</p>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% section 'component-book-cta' %}
+
