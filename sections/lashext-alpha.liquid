@@ -1,0 +1,53 @@
+<div class="clear"></div>
+<section class="right-img-text-combo">
+    <div class="frow justify-start">
+        <div class="right-img">
+            <img src="{{ section.settings.lashext-alpha-image | img_url: 'large' }}" alt="{{ section.settings.lashext-image-alt }}" />
+        </div>
+        <div class="text-combo">
+            <h2 class="text-combo-title">{{ section.settings.lashext-alpha-name }}</h2>
+            <p>{{ section.settings.lashext-alpha-desc }}</p>
+        </div>
+        <a class="text-combo-cta" href="{{ section.settings.alpha-btn-link }}">
+            <div>{{ section.settings.alpha-btn-text }}</div>
+        </a>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "LashEXT Alpha",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "lashext-alpha-image",
+            "label": "Alpha Image"
+        },
+        {
+            "type": "text",
+            "id": "lashext-image-alt",
+            "label": "Alt description for Image"
+        },
+        {
+            "type": "text",
+            "id": "lashext-alpha-name",
+            "label": "Name of Alpha Content"
+        },
+        {
+            "type":  "textarea",
+            "id": "lashext-alpha-desc",
+            "label": "Alpha Description"
+        },
+        {
+            "type": "text",
+            "id":  "alpha-btn-text",
+            "label": "Alpha CTA Text"
+        },
+        {
+            "type": "url",
+            "id":  "alpha-btn-link",
+            "label": "Alpha CTA Link"
+        }
+    ]
+}
+{% endschema %}

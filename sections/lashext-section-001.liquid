@@ -1,0 +1,24 @@
+<section>
+  <div>{{ section.settings.lashext_section_name_001 }}</div>
+  {% if section.settings.lashext_section_desc_001 %}
+    <div>{{ section.settings.lashext_section_desc_001 }}</div>
+  {% endif %}
+</section>
+{% schema %}
+{
+    "name": "LashEXT Page Title 001",
+    "settings": [
+        {
+            "type": "text",
+            "id": "lashext_section_name_001",
+            "label": "LashEXT Section Title"
+
+        },
+        {
+            "type": "textarea",
+            "id": "lashext_section_desc_001",
+            "label": "LashEXT Section Description"
+        }
+    ]
+}
+{% endschema %}
