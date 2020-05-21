@@ -1,0 +1,34 @@
+{% section 'book-section-001' %}
+
+
+{% comment %} <div class="frow justify-start">
+{% for collection in collections %}
+    <div>
+      {% if collection.image %}
+        <img src="{{ collection | img_url: '450x450' }}" alt="{{ collection.image.alt }}" />
+      {% else %}
+        <img src="{{ collection.products.first | img_url: '450x450' }}" alt="{{ collection.title | escape  }}" />
+      {% endif %}
+      <h4>{{ collection.title }}</h4>
+    </div>
+{% endfor %}
+</div> {% endcomment %}
+
+<div class="featured-collections">
+  <div class="frow justify-start">
+    {% for link in linklists.book.links %}
+    <div class="collection-thumb">
+      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
+      <h3 class="collection-thumb-title">
+        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
+      </h3>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% section 'book-alpha' %}
+
+{% section 'book-faqs-001' %}
+
+{% section 'component-book-cta' %}

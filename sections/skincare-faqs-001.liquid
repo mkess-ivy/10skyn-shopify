@@ -1,0 +1,41 @@
+<div class="clear"></div>
+<section class="faqs">
+    <h2 class="faqs-title">{{ section.settings.skincare_faqs_name_001 }}</h2>
+    {% for block in section.blocks %}
+    <div class="faqs-single">
+        <div class="faqs-q">{{ block.settings.skincare_faqs_question }}</div>
+        <div class="faqs-a">{{ block.settings.skincare_faqs_answer }}</div>
+    </div>
+    {% endfor %}
+</section>
+
+{% schema %}
+{
+    "name": "Skincare FAQs 001",
+    "settings": [
+        {
+            "type": "text",
+            "id": "skincare_faqs_name_001",
+            "label": "Skincare FAQs Title 001"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "component",
+            "name": "Skincare FAQs 001",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "skincare_faqs_question",
+                    "label": "Skincare Question"
+                },
+                {
+                    "type": "textarea",
+                    "id": "skincare_faqs_answer",
+                    "label": "Skincare Answer"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

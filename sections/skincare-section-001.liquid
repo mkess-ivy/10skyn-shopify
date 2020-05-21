@@ -1,0 +1,24 @@
+<section>
+  <div>{{ section.settings.skincare_section_name_001 }}</div>
+  {% if section.settings.skincare_section_description_001 %}
+    <div>{{ section.settings.skincare_section_description_001 }}</div>
+  {% endif %}
+</section>
+{% schema %}
+{
+    "name": "Skincare Page Title 001",
+    "settings": [
+        {
+            "type": "text",
+            "id": "skincare_section_name_001",
+            "label": "Skincare Section Title 001"
+
+        },
+        {
+            "type": "textarea",
+            "id": "skincare_section_description_001",
+            "label": "Skincare Section Description 001"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,24 @@
+<section>
+  <div>{{ section.settings.book_section_name_001 }}</div>
+  {% if section.settings.book_section_description_001 %}
+    <div>{{ section.settings.book_section_description_001 }}</div>
+  {% endif %}
+</section>
+{% schema %}
+{
+    "name": "Book Page Title 001",
+    "settings": [
+        {
+            "type": "text",
+            "id": "book_section_name_001",
+            "label": "Book Section Title 001"
+
+        },
+        {
+            "type": "textarea",
+            "id": "book_section_description_001",
+            "label": "Book Section Description 001"
+        }
+    ]
+}
+{% endschema %}
