@@ -1,0 +1,28 @@
+<div class="clear"></div>
+<div>{{ section.settings.favorites-name }}</div>
+<div class="featured-collections">
+  <div class="frow justify-start">
+    {% for link in linklists.favorites.links %}
+    <div class="collection-thumb">
+      <a href="{{ link.url }}"><img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}"></a>
+      <h3 class="collection-thumb-title">
+        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
+      </h3>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+    "name": "Favorites Section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "favorites-name",
+            "label": "Favorites Title"
+
+        }
+    ]
+}
+{% endschema %}

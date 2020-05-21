@@ -1,0 +1,53 @@
+<div class="clear"></div>
+<section class="right-img-text-combo">
+    <div class="frow justify-start">
+        <div class="text-combo">
+            <h2 class="text-combo-title">{{ section.settings.about-alpha-name }}</h2>
+            <p>{{ section.settings.about-alpha-desc }}</p>
+            <a class="text-combo-cta" href="{{ section.settings.alpha-btn-link }}">
+                <div>{{ section.settings.alpha-btn-text }}</div>
+            </a>
+        </div>
+        <div class="alpha-img">
+            <img src="{{ section.settings.about-alpha-image | img_url: 'large' }}" alt="{{ section.settings.about-image-alt }}" />
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "About Alpha Reverse",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "about-alpha-image",
+            "label": "Alpha Image"
+        },
+        {
+            "type": "text",
+            "id": "about-image-alt",
+            "label": "Alt description for Image"
+        },
+        {
+            "type": "text",
+            "id": "about-alpha-name",
+            "label": "Name of Alpha Content"
+        },
+        {
+            "type":  "textarea",
+            "id": "about-alpha-desc",
+            "label": "Alpha Description"
+        },
+        {
+            "type": "text",
+            "id":  "alpha-btn-text",
+            "label": "Alpha CTA Text"
+        },
+        {
+            "type": "url",
+            "id":  "alpha-btn-link",
+            "label": "Alpha CTA Link"
+        }
+    ]
+}
+{% endschema %}

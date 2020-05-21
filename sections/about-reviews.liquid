@@ -1,0 +1,21 @@
+<div class="clear"></div>
+<section class="reviews">
+    <div class="frow centered">
+        <div style="background-image:url('{{ section.settings.reviews-bg.src | img_url: 'large' }}');">
+            <div>Press Play</div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Review Section",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "reviews-bg",
+            "label": "Background Image"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,54 @@
+<div class="clear"></div>
+<section class="team">
+    <h2 class="team-title">{{ section.settings.team_title }}</h2>
+    <div class="frow justify-start">
+    {% for block in section.blocks %}
+    <div class="team-single">
+        <img src="{{ block.settings.team-image | img_url: 'large' }}" alt="{{ block.settings.team-image-alt }}" />
+        <div class="team-name">{{ block.settings.team_name }}</div>
+        <div class="team-position">{{ block.settings.team-position }}</div>
+    </div>
+    {% endfor %}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Team Section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "team_title",
+            "label": "Team Title"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "component",
+            "name": "Team Member",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "team-image",
+                    "label": "Team Image"
+                },
+                {
+                    "type": "text",
+                    "id": "team-image-alt",
+                    "label": "Team Image Alt Desc"
+                },
+                {
+                    "type": "text",
+                    "id": "team_name",
+                    "label": "Team Name"
+                },
+                {
+                    "type": "text",
+                    "id": "team_position",
+                    "label": "Team Position"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
