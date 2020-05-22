@@ -24,7 +24,7 @@
 
       {% unless request.path contains 'tagged' %}
       <div id="recent-posts" class="desktop-12 tablet-6 mobile-3">
-        {% for article in blog.articles limit: 2 %}
+        {% for article in blog.articles  %}
           <div class="recent-post desktop-6 tablet-3 mobile-3{% if settings.animation != 'none' %} animate {{ settings.animation }}{% endif %}">
             <a class="recent-image" href="{{ article.url }}">
               {%- include 'simple-responsive-image', type: article.image -%}
@@ -68,7 +68,7 @@
           </ul>
         </div>
       {% endif %}
-      <div id="blog-articles" class="{% if section.settings.show_sidebar %}desktop-10{% else %}desktop-12{% endif %} tablet-6 mobile-3">
+      {% comment %} <div id="blog-articles" class="{% if section.settings.show_sidebar %}desktop-10{% else %}desktop-12{% endif %} tablet-6 mobile-3">
         <ul>
           {% if request.path contains 'tagged' %}
             {% for article in blog.articles %}
@@ -80,7 +80,7 @@
             {% endfor %}
           {% endif %}
         </ul>
-      </div>
+      </div> {% endcomment %}
 
     </div>
 
