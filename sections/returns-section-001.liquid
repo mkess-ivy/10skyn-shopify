@@ -1,0 +1,24 @@
+<section>
+  <div>{{ section.settings.returns_section_name_001 }}</div>
+  {% if section.settings.returns_section_desc_001 %}
+    <div>{{ section.settings.returns_section_desc_001 }}</div>
+  {% endif %}
+</section>
+{% schema %}
+{
+    "name": "Returns Page Title 001",
+    "settings": [
+        {
+            "type": "text",
+            "id": "returns_section_name_001",
+            "label": "Returns Section Title"
+
+        },
+        {
+            "type": "textarea",
+            "id": "returns_section_desc_001",
+            "label": "Returns Section Description"
+        }
+    ]
+}
+{% endschema %}
