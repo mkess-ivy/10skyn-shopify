@@ -1,0 +1,24 @@
+<section>
+  <div>{{ section.settings.shop_section_name_001 }}</div>
+  {% if section.settings.shop_section_desc_001 %}
+    <div>{{ section.settings.shop_section_desc_001 }}</div>
+  {% endif %}
+</section>
+{% schema %}
+{
+    "name": "Shop Page Title 001",
+    "settings": [
+        {
+            "type": "text",
+            "id": "shop_section_name_001",
+            "label": "Shop Section Title"
+
+        },
+        {
+            "type": "textarea",
+            "id": "shop_section_desc_001",
+            "label": "Shop Section Description"
+        }
+    ]
+}
+{% endschema %}
