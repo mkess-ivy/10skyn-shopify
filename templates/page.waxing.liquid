@@ -1,38 +1,14 @@
 {% section 'waxing-section-one' %}
 
-<div class="featured-collections">
-  <div class="frow justify-start">
-    {% for link in linklists.bikini-facial-waxing.links %}
-    <div class="collection-thumb">
-      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
-      <h3 class="collection-thumb-title">
-        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
-      </h3>
-      {{ link.object.price | money }}<br/>
-      <p>Book Now</p>
-    </div>
-  {% endfor %}
-  </div>
-</div>
+{% assign c = "bikini-facial-waxing" %}
+{% render 'variable-linklist' with linklistHandle: c %}
 
 {% render 'spacer', height: '35'%}
 
 {% section 'waxing-section-two' %}
 
-<div class="featured-collections">
-  <div class="frow justify-start">
-    {% for link in linklists.body-waxing.links %}
-    <div class="collection-thumb">
-      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
-      <h3 class="collection-thumb-title">
-        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
-      </h3>
-      {{ link.object.price | money }}<br/>
-      <p>Book Now</p>
-    </div>
-  {% endfor %}
-  </div>
-</div>
+{% assign c = "body-waxing" %}
+{% render 'variable-linklist' with linklistHandle: c %}
 
 {% section 'waxing-faqs-001' %}
 

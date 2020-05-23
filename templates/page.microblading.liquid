@@ -1,19 +1,7 @@
 {% section 'microblading-section' %}
 
-<div class="featured-collections">
-  <div class="frow justify-start">
-    {% for link in linklists.microblading.links %}
-    <div class="collection-thumb">
-      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
-      <h3 class="collection-thumb-title">
-        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
-        {{ link.object.price | money }}<br/>
-        Book Now
-      </h3>
-    </div>
-    {% endfor %}
-  </div>
-</div>
+{% assign c = "microblading" %}
+{% render 'variable-linklist' with linklistHandle: c %}
 
 {% section 'microblading-alpha' %}
 

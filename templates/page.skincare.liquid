@@ -1,19 +1,7 @@
 {% section 'skincare-section-001' %}
 
-<div class="featured-collections">
-  <div class="frow justify-start">
-    {% for link in linklists.skincare.links %}
-    <div class="collection-thumb">
-      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}">
-      <h3 class="collection-thumb-title">
-        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
-      </h3>
-      {{ link.object.price | money }}<br/>
-      <p>Book Now</p>
-    </div>
-  {% endfor %}
-  </div>
-</div>
+{% assign c = "skincare" %}
+{% render 'variable-linklist' with linklistHandle: c %}
 
 {% section 'skincare-faqs-001' %}
 
