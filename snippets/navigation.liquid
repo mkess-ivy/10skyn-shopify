@@ -216,7 +216,7 @@
           {% capture 'linklist_images_columns' %}
             <div id="menu-{{ block.id }}" class="linklist-columns">
               <div id="menu-wrapper">
-                {% for sub_link in link.links limit: 3 %}
+                {% for sub_link in link.links limit: 5 %}
                 <div class="inside-wrapper">
                   <h5 class="header">
                    <a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
@@ -231,7 +231,7 @@
                 </div>
                 {% endfor %}
                </div>
-                {% for n in (1..3) %}
+                {% for n in (1..5) %}
                   {% assign custom_image = "featured_image_" | append: n %}
                   {% assign custom_image = block.settings[custom_image] %}
                   {% assign custom_title = "featured_image_label_" | append: n %}
