@@ -38,6 +38,7 @@
   {{ "//code.jquery.com/jquery-3.3.1.min.js" | script_tag }}
   {{ 'eventemitter3.min.js' | asset_url | script_tag }}
   {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  {{ '10skyntheme.js' | asset_url | script_tag }}
 
   {% if template == 'index' or  template contains 'page.custom-' or template contains 'product.custom-' %}
   {% endif %}

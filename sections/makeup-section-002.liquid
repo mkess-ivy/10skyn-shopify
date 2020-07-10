@@ -1,24 +1,25 @@
-<section>
-  <div>{{ section.settings.makeup_section_name_002 }}</div>
-  {% if section.settings.makeup_section_desc_002 %}
-    <div>{{ section.settings.makeup_section_desc_002 }}</div>
+<section class="sk-section-wrapper">
+  <div class="sk-section-name">{{ section.settings.section_name_002 }}</div>
+  {% if section.settings.section_description_002 %}
+    <div class="sk-section-description">{{ section.settings.section_description_002 }}</div>
   {% endif %}
 </section>
+
 {% schema %}
 {
-    "name": "Makeup Title 002",
-    "settings": [
-        {
-            "type": "text",
-            "id": "makeup_section_name_002",
-            "label": "Makeup Section Title"
+  "name": "Page Title 002",
+  "settings": [
+    {
+        "type": "text",
+        "id": "section_name_002",
+        "label": "Section Title Two"
 
-        },
-        {
-            "type": "textarea",
-            "id": "makeup_section_desc_002",
-            "label": "Makeup Section Description"
-        }
-    ]
+    },
+    {
+        "type": "textarea",
+        "id": "section_description_002",
+        "label": "Section Description Two"
+    }
+  ]
 }
 {% endschema %}

@@ -1,24 +1,10 @@
 {% section 'book-section-001' %}
 
-
-{% comment %} <div class="frow justify-start">
-{% for collection in collections %}
-    <div>
-      {% if collection.image %}
-        <img src="{{ collection | img_url: '450x450' }}" alt="{{ collection.image.alt }}" />
-      {% else %}
-        <img src="{{ collection.products.first | img_url: '450x450' }}" alt="{{ collection.title | escape  }}" />
-      {% endif %}
-      <h4>{{ collection.title }}</h4>
-    </div>
-{% endfor %}
-</div> {% endcomment %}
-
-{% assign c = "book" %}
-{% render 'variable-linklist' with linklistHandle: c %}
+{% section 'book-linklist' %}
 
 {% section 'book-alpha' %}
 
 {% section 'book-faqs-001' %}
 
 {% section 'component-book-cta' %}
+

@@ -1,0 +1,45 @@
+<div class="sk-section-wrapper">
+  <div class="frow justify-start">
+    
+    {% for block in section.blocks %}
+    <div class="book-page-item">
+      <div class="book-bg-img" style="background-image:url('{{ block.settings.book-image | img_url: 'medium' }}');">
+      </div>
+      <h3 class="collection-thumb-title">
+        <a href="{{ block.settings.book-url }}">{{ block.settings.book-title }}</a>
+      </h3>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+    "name": "Book Linklist",
+    "blocks": [
+        {
+            "type": "component",
+            "name": "Book Item",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "book-title",
+                    "label": "Book Title"                
+                },
+                {
+                    "type": "url",
+                    "id": "book-url",
+                    "label": "Book URL"                
+                },
+                {
+                    "type": "image_picker",
+                    "id": "book-image",
+                    "label": "Book Image"
+                }
+            ]
+        }
+        
+    ]
+}
+{% endschema %}

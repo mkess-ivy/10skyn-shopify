@@ -1,12 +1,21 @@
 <div class="clear"></div>
+
 <section class="team">
-    <h2 class="team-title">{{ section.settings.team_title }}</h2>
-    <div class="frow justify-start">
+    <section class="sk-section-wrapper">
+        <div class="sk-section-name">{{ section.settings.team_title }}</div>
+    </section>
+    
+    
+    <div class="frow justify-between">
     {% for block in section.blocks %}
     <div class="team-single">
         <img src="{{ block.settings.team-image | img_url: 'large' }}" alt="{{ block.settings.team-image-alt }}" />
         <div class="team-name">{{ block.settings.team_name }}</div>
         <div class="team-position">{{ block.settings.team-position }}</div>
+        
+        <a class="book-btn" href="{{ section.settings.book_url }}" target="_blank" alt="Book with {{ section.settings.team-name }}">
+            <div>Book with me</div>
+        </a>
     </div>
     {% endfor %}
     </div>
@@ -46,6 +55,11 @@
                     "type": "text",
                     "id": "team_position",
                     "label": "Team Position"
+                },
+                {
+                    "type": "url",
+                    "id": "book_url",
+                    "label": "Booking URL"
                 }
             ]
         }

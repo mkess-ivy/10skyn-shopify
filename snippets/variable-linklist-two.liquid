@@ -1,0 +1,16 @@
+<div class="featured-collection-2col">
+  <div class="frow justify-between">
+    {% for link in linklists[linklistHandle].links %}
+    <div class="collection-thumb-2">
+      <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+      <div class="collection-thumb-title">
+        {{ link.object.title | escape }} | {{ link.object.price | money }}
+      </div>
+      <div class="collection-thumb-desc">{{ link.object.description }}</div>
+      <a href="{{ link.url }}" class="collection-thumb-link">
+        <div>Book Now</div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,10 +1,20 @@
 <div class="clear"></div>
-<section class="faqs">
-    <h2 class="faqs-title">{{ section.settings.book_faqs_name_001 }}</h2>
+
+<section class="accordion">
+    <h2 class="gamma-title">{{ section.settings.faqs_name }}</h2>
+    
     {% for block in section.blocks %}
-    <div class="faqs-single">
-        <div class="faqs-q">{{ block.settings.book_faqs_question }}</div>
-        <div class="faqs-a">{{ block.settings.book_faqs_answer }}</div>
+    <div class="accordion-item potato">
+        <a href="#" class="heading">
+            <div class="icon"></div>
+            <div class="title">{{ block.settings.faqs_question }}</div>
+        </a>
+
+        <div class="content">
+            <p>
+                {{ block.settings.faqs_answer }}
+            </p>
+        </div>
     </div>
     {% endfor %}
 </section>
@@ -15,7 +25,7 @@
     "settings": [
         {
             "type": "text",
-            "id": "book_faqs_name_001",
+            "id": "faqs_name",
             "label": "Book FAQs Title 001"
         }
     ],
@@ -26,12 +36,12 @@
             "settings": [
                 {
                     "type": "text",
-                    "id": "book_faqs_question",
+                    "id": "faqs_question",
                     "label": "Book Question"
                 },
                 {
                     "type": "textarea",
-                    "id": "book_faqs_answer",
+                    "id": "faqs_answer",
                     "label": "Book Answer"
                 }
             ]

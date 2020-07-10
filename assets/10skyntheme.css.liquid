@@ -1,0 +1,250 @@
+:root {
+    --main-font: 'Prata',sans-serif;
+    --body-font: 'Open Sans', sans-serif;
+    --title-space: 30px;
+    --section-space: 60px;
+    --height-var: 5vh;
+    --btn-bg: #000;
+    --btn-color: #fff;
+    --faqs-bg: #000;
+    --link-color: white;
+    --blue: #84C5C3;
+    --white: #fff;
+}
+
+/* Global Styles */
+.sk-section-wrapper {
+    padding-bottom: calc(var(--section-space) * 2);
+}
+.sk-section-name {
+    font-family: var(--main-font);
+    font-size: 48px;
+    text-align: center;
+    {% comment %} padding-bottom: var(--title-space); {% endcomment %}
+}
+.sk-section-description {
+    padding: 20px 0 0;
+    width: 56%;
+    margin: auto;
+    text-align: center;
+    line-height: 1.4;
+}
+.gamma-title {
+    padding-bottom: var(--section-space);
+    text-align: center;
+}
+#footer-signup button {
+    border: none;
+}
+
+/* Buttons  */
+.book-btn {
+    display: block;
+    padding: 10px 0 0;
+}
+.book-btn:hover {
+    text-decoration: none;
+}
+.book-btn div {
+    text-transform: uppercase;
+    font-size: 13px;
+    border-bottom: 1px solid;
+    width: auto;
+    display: inline;
+}
+
+
+/* Featured Collections */
+.book-page-item {
+    width: 30%;
+    margin-right: 30px;
+    padding-bottom: var(--section-space);
+}
+.book-page-item img {
+    width: 100%;
+}
+.book-bg-img {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: calc(var(--height-var) * 7);
+    margin-bottom: var(--title-space);
+}
+
+
+/* CTAs with Images */
+.right-img-text-combo {
+    padding-bottom: calc(var(--section-space) * 2);
+}
+.right-img {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: calc(var(--height-var) * 9);
+}
+.text-combo {
+    width: 35%;
+}
+.text-combo-btn {
+    width: 100%;
+}
+.text-combo-btn div {
+    width: 125px;
+    text-align: center;
+    padding: 10px 0;
+    background-color: var(--btn-bg);
+    color: var(--btn-color);
+    text-transform: uppercase;
+}
+.text-combo-title {
+    font-size: 48px;
+    font-family: var(--main-font);
+    padding-bottom: var(--title-space);
+}
+.text-combo-desc {
+    font-size: 22px;
+    padding-bottom: var(--title-space);
+}
+
+/* FAQs */
+.accordion-item {
+    border: 1px solid var(--faqs-bg);
+    margin-bottom: 10px;
+}
+.accordion-item a {
+    display: block;
+    background: var(--faqs-bg);
+    padding: 15px 10px;
+    color: var(--link-color ) !important;
+    transition: none;
+}
+.accordion-item a:visited {
+    color: var(--link-color ) !important;
+}
+.accordion-item a:hover {
+    color: var(--link-color ) !important;
+}
+
+.content {
+    display: none;
+    padding: 10px 0 0 10px;
+}
+
+/* Book CTA Section */
+.cta-section {
+  margin: 0 auto;
+  text-align: center;
+  width: 45%;
+  padding: calc(var(--section-space) *2) 0;
+}
+.cta-title {
+  font-family: 'Prata', sans-serif;
+  font-size: 36px;
+  padding-bottom: 30px;
+  line-height: 1.2;
+}
+.cta-description {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  padding-bottom: 40px;
+  line-height: 1.4;
+}
+.cta-btn {
+  color: white;
+}
+.cta-btn div {
+  font-size: 18px;
+  text-transform: uppercase;
+  background: black;
+  width: 130px;
+  padding: 10px 0;
+  margin: auto;
+}
+
+
+/* 3 column for collections */
+.featured-collection-3col {
+    width: 80%;
+    margin: 0 auto;
+}
+.collection-thumb-3 {
+    width: 29%;
+    margin-right: 40px;
+    margin-bottom: calc(var(--title-space) * 3);
+}
+.collection-thumb-3 img {
+    width: 100%;
+}
+.collection-thumb-title {
+    font-family: var(--body-font);
+    font-weight: initial;
+    padding: 15px 0;
+    width: 80%;
+    font-size: 20px;
+}
+.collection-thumb-desc {
+
+}
+.collection-thumb-link div {
+    text-transform: uppercase;
+    font-size: 14px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid;
+    width: 80px;
+}
+.collection-thumb-link:hover {
+    color: blue;
+    text-decoration: none;
+}
+
+
+/* 2-column for collections */
+.featured-collection-2col {
+    width: 60%;
+    margin: 0 auto;
+}
+.collection-thumb-2 {
+    width: 47%;
+    margin-bottom: calc(var(--title-space) * 3);
+}
+.collection-thumb-2 img {
+    width: 100%;
+}
+
+
+/* Need to Know */
+.ntk-option {
+    width: 31%;
+    background: var(--blue);
+    text-align: center;
+    padding: 10px 20px 30px;
+    color: var(--white);
+}
+.ntk-option-title {
+    padding: calc(var(--title-space) - 10px) 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+/* Our Story  */
+.sk-section-wrapper.about,
+.sk-section-wrapper.about-reverse {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.about .text-combo,
+.about-reverse .text-combo {
+    width: 40%;
+}
+
+.team-single {
+    width: 30%;
+    margin-bottom: var(--section-space);
+}
+.team-name {
+    font-size: 20px;
+    padding: 10px 0;
+}

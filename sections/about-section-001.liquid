@@ -1,9 +1,10 @@
-<section>
-  <div>{{ section.settings.about_section_name_001 }}</div>
+<section class="sk-section-wrapper">
+  <div class="sk-section-name">{{ section.settings.about_section_name_001 }}</div>
   {% if section.settings.about_section_desc_001 %}
-    <div>{{ section.settings.about_section_desc_001 }}</div>
+    <div class="sk-section-description">{{ section.settings.about_section_desc_001 }}</div>
   {% endif %}
 </section>
+
 {% schema %}
 {
     "name": "About Page Title 001",

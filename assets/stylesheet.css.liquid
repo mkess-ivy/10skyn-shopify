@@ -377,7 +377,7 @@ body {
   font-family:{{ main_font.family }};
   font-weight: {{ main_font.weight }};
   font-size: {{ settings.font_size }}px;
-  line-height: calc(({{ settings.font_size }}px * 0.375) + {{ settings.font_size }}px);
+  {% comment %} line-height: calc(({{ settings.font_size }}px * 0.375) + {{ settings.font_size }}px); {% endcomment %}
   text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -11193,40 +11193,7 @@ a:focus {
   }
 }
 
-// Book CTA Section
-#shopify-section-book-cta {
-  margin: 175px auto 75px;
-  text-align: center;
-  width: 35%;
-}
-.cta-section {
-  margin: 175px auto 75px;
-  text-align: center;
-  width: 35%; 
-}
-.cta-title {
-  font-family: 'Prata', sans-serif;
-  font-size: 36px;
-  padding-bottom: 30px;
-  line-height: 1.2;
-}
-.cta-description {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 22px;
-  padding-bottom: 40px;
-  line-height: 1.4;
-}
-.cta-btn {
-  color: white;
-}
-.cta-btn div {
-  font-size: 18px;
-  text-transform: uppercase;
-  background: black;
-  width: 130px;
-  padding: 10px 0;
-  margin: auto;
-}
+
 
 // collections
 .collection-description
