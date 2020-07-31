@@ -1,0 +1,20 @@
+
+<div class="sk-product-wrapper">
+  <div class="featured-collection-3col">
+    <div class="frow justify-start">
+      {% for link in linklists.shop.links %}
+      {% if link.type == 'collection_link' %}
+        {% assign linkCollection = link.object %}
+        <div class="collection-thumb-3">
+          <a href="{{ link.url }}">
+            {% if linkCollection.image %}
+              <img src="{{ linkCollection.image.src | collection_img_url: 'medium' }}" alt="{{ linkCollection.title | escape }}" class="collection-thumb-img" />
+            {% endif %}
+          </a>
+          <div class="collection-thumb-title"><a href="{{ link.url }}">{{ link.title }}</a></div>
+        </div>
+      {% endif %}
+    {% endfor %}
+    </div>
+  </div>
+</div>

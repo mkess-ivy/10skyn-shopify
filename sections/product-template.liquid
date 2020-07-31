@@ -1,3 +1,5 @@
+{% render 'spacer', height: '50' %}
+
 {% assign current_variant = product.selected_or_first_available_variant %}
 
 <div class="product-page product-template clearfix" id="product-{{ product.id }}"
@@ -113,7 +115,44 @@
                 {{ product.description | split: '<!-- split -->' | first }}
               </div>
             </ul>
+            
           </li>
+
+          {% comment %} Booking Link Section {% endcomment %}
+          <li class="product-accordion">
+            <a href="#" class="product-accordion-toggle" data-index="">
+              Schedule Your Appointment Before Purchase
+              <svg class="open" width="16px" height="2px" viewBox="0 0 16 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1249.000000)" stroke="#222222" stroke-width="2">
+                          <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                              <line x1="360" y1="29" x2="344" y2="29" id="Path-3-Copy"></line>
+                          </g>
+                      </g>
+                  </g>
+              </svg>
+              <svg class="closed" width="16px" height="17px" viewBox="0 0 16 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Collections---Sets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Mobile---Bandeau-Variants" transform="translate(-368.000000, -1433.000000)" stroke="#222222" stroke-width="2">
+                          <g id="Product-Details" transform="translate(24.000000, 1221.000000)">
+                              <g id="Plus" transform="translate(344.000000, 212.500000)">
+                                  <line x1="8" y1="0" x2="8" y2="16" id="Path-3"></line>
+                                  <line x1="16" y1="8" x2="0" y2="8" id="Path-3-Copy"></line>
+                              </g>
+                          </g>
+                      </g>
+                  </g>
+              </svg>
+            </a>
+            <ul class="product-accordion-content first">
+              <div class="rte">
+                <a href="{{ product.metafields.global.now-booking-link }}" target="_blank">Schedule your appointment</a>
+              </div>
+            </ul>
+            
+          </li>
+
+
 
           {% unless section.blocks.size == 0 %}
             {% for block in section.blocks %}

@@ -6,21 +6,27 @@
   {% endif %}
 
   <div id="page">
-    <h1 class="blog-title desktop-12" style="text-align: center">{{ article.title }}</h1>
+    
+    <section class="sk-section-wrapper blog-article">
+      <div class="sk-section-name">{{ article.title }}</div>
+    </section>
     {% paginate article.comments by 20 %}
       <div id="article-body" class="desktop-12 tablet-6 mobile-3">
         {% if section.settings.show_date or section.settings.show_author %}
           <p class="posted">{% if section.settings.show_date %}{{ article.published_at | date: format: 'month_date_year'}}{% endif %}{% if section.settings.show_date and section.settings.show_author %} – {% endif %}{% if section.settings.show_author %}{{ article.author }}{% endif %}</p>
         {% endif %}
-        {% if article.image and section.settings.show_image %}
+        <div class="article-hero-image">
+          {% if article.image and section.settings.show_image %}
           {%- include 'basic-responsive-image', type: article.image -%}
           {% if article.image.alt %}<p class="caption">{{ article.image.alt }}</p>{% endif %}
           <noscript>
             <img src="{{ article.image | img_url: '800x' }}" alt="{{ article.image.alt }}">
           </noscript>
         {% endif %}
+        </div>
+        
 
-        <div class="rte">
+        <div class="rte article-hero-content">
           {{ article.content }}
         </div>
 
@@ -134,7 +140,8 @@
       <div id="article-pagination">
         {% if blog.previous_article != blank %}
           <a class="prev-article" href="{{ blog.previous_article }}">
-            <svg width="12px" height="20px" viewBox="0 0 12 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <div class="frow justify-start">
+              <svg width="12px" height="20px" viewBox="0 0 12 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Collections-+-Pagination-&amp;-Breadcrumbs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g id="Desk---Collections" transform="translate(-654.000000, -1670.000000)" stroke="#353535">
                         <g id="Pagination-1" transform="translate(640.000000, 1660.000000)">
@@ -144,11 +151,14 @@
                 </g>
             </svg>
             {{ blog.previous_article.title  | truncate: 30 }}
+            </div>
+            
           </a>
         {% endif %}
         {% if blog.next_article != blank %}
           <a class="next-article" href="{{ blog.next_article }}">
-            {{ blog.next_article.title  | truncate: 30 }}
+            <div class="frow justify-start">
+              {{ blog.next_article.title  | truncate: 30 }}
             <svg width="12px" height="20px" viewBox="0 0 12 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Collections-+-Pagination-&amp;-Breadcrumbs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g id="Desk---Collections" transform="translate(-654.000000, -1670.000000)" stroke="#353535">
@@ -158,6 +168,8 @@
                     </g>
                 </g>
             </svg>
+            </div>
+            
           </a>
         {% endif %}
       </div>

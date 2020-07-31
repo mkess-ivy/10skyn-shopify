@@ -1387,9 +1387,10 @@ div#error-page {
   padding-top: {{ settings.index_padding }}px;
   margin-bottom: {{ settings.index_padding }}px;
 }
-#page {
-  padding-bottom: {{ settings.index_padding }}px;
+.slideshow-section {
+  margin-bottom: 50px !important;
 }
+
 
 .index-sections .shopify-section:first-child section,
 .product-sections section:last-child {
@@ -1584,7 +1585,7 @@ ul.article-loop {
 .homepage-text-promo .box-ratio,
 .homepage-text-promo img,
 .homepage-text-promo .onboard {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 .text-right {
   text-align: right;
@@ -2862,9 +2863,9 @@ ul.view-more li.detail-item a {
 .product #content {
   padding-bottom: 60px;
 }
-.page-contact div#content {
+/* .page-contact div#content {
   margin-bottom: 200px;
-}
+} */
 
 div#contactFormWrapper {
   margin-top: 30px;
@@ -3067,9 +3068,7 @@ span.post-title, p.posted, .article-headline .rte, .article-headline {
 .article p.posted {
  text-align: center;
 }
-.blog-template #recent-posts {
-  margin-bottom: 80px;
-}
+
 .blog-template #recent-posts .recent-image {
   overflow: hidden;
   margin: 0 auto;
@@ -3644,7 +3643,7 @@ body.index #footer {
 #pagination {
   text-align: center;
   margin-top: 64px;
-  margin-bottom: 120px;
+  margin-bottom: 60px;
   font-size: 13px;
   font-weight: bold;
 }
@@ -4140,6 +4139,11 @@ label[for="nav-trigger"] i {
 }
 .nav-trigger + label {
   margin-top: -3px;
+}
+@media screen and (max-width: 992px) { 
+  .nav-trigger + label {
+    margin-top: 5px;
+  }
 }
 body {
   /* Without this, the body has excess horizontal scroll when the menu is open */

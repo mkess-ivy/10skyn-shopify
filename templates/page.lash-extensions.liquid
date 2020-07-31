@@ -1,12 +1,47 @@
 {% section 'lashext-section-001' %}
 
-{% assign c = "lash-extensions" %}
-{% render 'variable-linklist-two' with linklistHandle: c %}
+<div class="sk-product-wrapper">
+  <div class="featured-collection-2col">
+    <div class="frow justify-between">
+      {% for link in linklists.lash-extensions.links %}
+      <div class="collection-thumb-2">
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <div class="collection-thumb-title">
+          {{ link.object.title | escape }} | {{ link.object.price | money }}
+        </div>
+        <div class="collection-thumb-desc">{{ link.object.description }}</div>
+        <a href="{{ page.metafields.global.lash-extensions-link }}" class="collection-thumb-link" target="_blank">
+          <div>Book Now</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 
 {% section 'lashext-section-002' %}
 
-{% assign c = "fill-ins-collection" %}
-{% render 'variable-linklist-two' with linklistHandle: c %}
+
+<div class="sk-product-wrapper">
+  <div class="featured-collection-2col">
+    <div class="frow justify-between">
+      {% for link in linklists.fill-ins-collection.links %}
+      <div class="collection-thumb-2">
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <div class="collection-thumb-title">
+          {{ link.object.title | escape }} | {{ link.object.price | money }}
+        </div>
+        <div class="collection-thumb-desc">{{ link.object.description }}</div>
+        <a href="{{ page.metafields.global.lash-extensions-link }}" class="collection-thumb-link" target="_blank">
+          <div>Book Now</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 
 {% section 'lashext-alpha' %}
 

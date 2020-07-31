@@ -1,22 +1,23 @@
-<section>
-  <div>{{ section.settings.shop_section_name_001 }}</div>
-  {% if section.settings.shop_section_desc_001 %}
-    <div>{{ section.settings.shop_section_desc_001 }}</div>
+<section class="sk-title-wrapper">
+  <div class="sk-section-name">{{ section.settings.section_name_001 }}</div>
+  {% if section.settings.section_description_001 %}
+    <div class="sk-section-description">{{ section.settings.section_description_001 }}</div>
   {% endif %}
 </section>
+
 {% schema %}
 {
     "name": "Shop Page Title 001",
     "settings": [
         {
             "type": "text",
-            "id": "shop_section_name_001",
+            "id": "section_name_001",
             "label": "Shop Section Title"
 
         },
         {
             "type": "textarea",
-            "id": "shop_section_desc_001",
+            "id": "section_description_001",
             "label": "Shop Section Description"
         }
     ]

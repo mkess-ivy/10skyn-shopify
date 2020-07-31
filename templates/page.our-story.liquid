@@ -1,13 +1,23 @@
-{% section 'about-section-001' %}
+<div id="content" class="row">
+    {% section 'about-section-001' %}
+    
+    {% section 'about-alpha' %}
+    
+    {% section 'about-alpha-reverse' %}
+    
+    {% section 'about-team' %}
+</div>
 
-{% section 'about-alpha' %}
-
-{% section 'about-alpha-reverse' %}
-
-{% section 'about-team' %}
 
 {% section 'about-reviews' %}
 
-{% section 'about-favorites' %}
+<div id="content" class="row">
+    {% section 'about-favorites' %}
 
-{% section 'component-book-cta' %}
+    {% section 'about-favorites-linklist' %}
+    
+    {% render 'spacer', height: '50' %}
+
+    {% section 'component-book-cta' %}
+</div>
+

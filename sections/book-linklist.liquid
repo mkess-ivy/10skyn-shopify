@@ -1,10 +1,10 @@
-<div class="sk-section-wrapper">
+<div class="sk-product-wrapper">
   <div class="frow justify-start">
     
     {% for block in section.blocks %}
     <div class="book-page-item">
-      <div class="book-bg-img" style="background-image:url('{{ block.settings.book-image | img_url: 'medium' }}');">
-      </div>
+      <a href="{{ block.settings.book-url }}"><div class="book-bg-img" style="background-image:url('{{ block.settings.book-image | img_url: 'medium' }}');">
+      </div></a>
       <h3 class="collection-thumb-title">
         <a href="{{ block.settings.book-url }}">{{ block.settings.book-title }}</a>
       </h3>

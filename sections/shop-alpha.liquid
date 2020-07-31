@@ -1,15 +1,15 @@
-<div class="clear"></div>
-<section class="right-img-text-combo">
-    <div class="frow justify-start">
-        <div class="right-img">
-            <img src="{{ section.settings.shop-alpha-image | img_url: 'large' }}" alt="{{ section.settings.shop-image-alt }}" />
-        </div>
+<section class="sk-alpha-wrapper">
+    <div class="frow justify-between">
+        <div class="right-img" style="background-image: url('{{ section.settings.shop-alpha-image | img_url: 'large' }}');"></div>
+
         <div class="text-combo">
-            <h2 class="text-combo-title">{{ section.settings.shop-alpha-name }}</h2>
-            <p>{{ section.settings.shop-alpha-desc }}</p>
-            <a class="text-combo-cta" href="{{ section.settings.alpha-btn-link }}">
-                <div>{{ section.settings.alpha-btn-text }}</div>
-            </a>
+            <div class="frow centered-column">
+                <div class="text-combo-title">{{ section.settings.shop-alpha-name }}</div>
+                <div class="text-combo-desc">{{ section.settings.shop-alpha-desc }}</div>
+                <a class="text-combo-btn" href="{{ section.settings.alpha-btn-link }}">
+                    <div>{{ section.settings.alpha-btn-text }}</div>
+                </a>
+            </div>
         </div>
     </div>
 </section>

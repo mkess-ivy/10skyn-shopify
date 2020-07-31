@@ -7,8 +7,8 @@
         {{ link.object.title | escape }} | {{ link.object.price | money }}
       </div>
       <div class="collection-thumb-desc">{{ link.object.description }}</div>
-      <a href="{{ link.url }}" class="collection-thumb-link">
-        <div>Book Now</div>
+      <a href="{{ product.metafields.services.booking-link }}" class="collection-thumb-link">
+        <div>Book Now {{ page.metafields.global.microblading-link }}</div>
       </a>
     </div>
     {% endfor %}

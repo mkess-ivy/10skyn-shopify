@@ -1,0 +1,43 @@
+{% section 'shop-section-001' %}
+
+<div class="sk-product-wrapper">
+    <div class="featured-collection-3col">
+      <div class="frow justify-start">
+        {% for link in linklists.eyelashes.links %}
+        <div class="collection-thumb-3">
+          <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+          <div class="collection-thumb-title">
+            {{ link.object.title | escape }} | {{ link.object.price | money }}
+          </div>
+          <div class="collection-thumb-desc">{{ link.object.description }}</div>
+          <a href="{{ product.url }}" class="collection-product-link" target="_blank">
+            <div>View Product</div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+
+{% section 'shop-section-002' %}
+
+<div class="sk-product-wrapper">
+    <div class="featured-collection-3col">
+      <div class="frow justify-start">
+        {% for link in linklists.skin-facial-care.links %}
+        <div class="collection-thumb-3">
+          <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+          <div class="collection-thumb-title">
+            {{ link.object.title | escape }} | {{ link.object.price | money }}
+          </div>
+          <div class="collection-thumb-desc">{{ link.object.description }}</div>
+          <a href="{{ product.url }}" class="collection-product-link" target="_blank">
+            <div>View Product</div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+
+{% section 'component-book-cta' %}

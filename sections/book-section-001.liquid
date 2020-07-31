@@ -1,4 +1,4 @@
-<section class="sk-section-wrapper">
+<section class="sk-title-wrapper">
   <div class="sk-section-name">{{ section.settings.book_section_name_001 }}</div>
   {% if section.settings.book_section_description_001 %}
     <div class="sk-section-description">{{ section.settings.book_section_description_001 }}</div>
@@ -7,19 +7,18 @@
 
 {% schema %}
 {
-    "name": "Book Page Title 001",
-    "settings": [
-        {
-            "type": "text",
-            "id": "book_section_name_001",
-            "label": "Book Section Title 001"
-
-        },
-        {
-            "type": "textarea",
-            "id": "book_section_description_001",
-            "label": "Book Section Description 001"
-        }
-    ]
+  "name": "Book Page Title 001",
+  "settings": [
+    {
+        "type": "text",
+        "id": "book_section_name_001",
+        "label": "Book Section Title 001"
+    },
+    {
+        "type": "textarea",
+        "id": "book_section_description_001",
+        "label": "Book Section Description 001"
+    }
+  ]
 }
 {% endschema %}

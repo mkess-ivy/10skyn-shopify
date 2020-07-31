@@ -1,0 +1,24 @@
+<section class="sk-title-wrapper">
+    <div class="sk-section-name">{{ section.settings.section_name_001 }}</div>
+    {% if section.settings.section_description_001 %}
+      <div class="sk-section-description">{{ section.settings.section_description_001 }}</div>
+    {% endif %}
+  </section>
+  
+  {% schema %}
+  {
+    "name": "Page Title 001",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_name_001",
+        "label": "Section Title One"
+      },
+      {
+        "type": "textarea",
+        "id": "section_description_001",
+        "label": "Section Description One"
+      }
+    ]
+  }
+  {% endschema %}

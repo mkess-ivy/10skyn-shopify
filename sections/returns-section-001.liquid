@@ -1,7 +1,7 @@
-<section>
-  <div>{{ section.settings.returns_section_name_001 }}</div>
-  {% if section.settings.returns_section_desc_001 %}
-    <div>{{ section.settings.returns_section_desc_001 }}</div>
+<section class="sk-title-wrapper">
+  <div class="sk-section-name">{{ section.settings.section_name_001 }}</div>
+  {% if section.settings.section_description_001 %}
+    <div class="sk-section-description">{{ section.settings.section_description_001 }}</div>
   {% endif %}
 </section>
 {% schema %}
@@ -10,13 +10,13 @@
     "settings": [
         {
             "type": "text",
-            "id": "returns_section_name_001",
+            "id": "section_name_001",
             "label": "Returns Section Title"
 
         },
         {
             "type": "textarea",
-            "id": "returns_section_desc_001",
+            "id": "section_description_001",
             "label": "Returns Section Description"
         }
     ]

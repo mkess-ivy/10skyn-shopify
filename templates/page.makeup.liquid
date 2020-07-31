@@ -1,17 +1,68 @@
 {% section 'makeup-section-001' %}
 
-{% assign c = "iconic-makeup" %}
-{% render 'variable-linklist-three' with linklistHandle: c %}
+<div class"sk-product-wrapper">
+  <div class="featured-collection-3col">
+    <div class="frow justify-start">
+      {% for link in linklists.iconic-makeup.links %}
+      <div class="collection-thumb-3">
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <div class="collection-thumb-title">
+          {{ link.object.title | escape }} | {{ link.object.price | money }}
+        </div>
+        <div class="collection-thumb-desc">{{ link.object.description }}</div>
+        <a href="{{ page.metafields.global.makeup-link }}" class="collection-thumb-link" target="_blank">
+          <div>Book Now</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 
 {% section 'makeup-section-002' %}
 
-{% assign c = "bridal-makeup" %}
-{% render 'variable-linklist-three' with linklistHandle: c %}
+
+<div class="sk-product-wrapper">
+  <div class="featured-collection-3col">
+    <div class="frow justify-start">
+      {% for link in linklists.bridal-makeup.links %}
+      <div class="collection-thumb-3">
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <div class="collection-thumb-title">
+          {{ link.object.title | escape }} | {{ link.object.price | money }}
+        </div>
+        <div class="collection-thumb-desc">{{ link.object.description }}</div>
+        <a href="{{ page.metafields.global.makeup-link }}" class="collection-thumb-link" target="_blank">
+          <div>Book Now</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 
 {% section 'makeup-section-003' %}
 
-{% assign c = "brows" %}
-{% render 'variable-linklist-three' with linklistHandle: c %}
+<div class="sk-product-wrapper">
+  <div class="featured-collection-3col">
+    <div class="frow justify-start">
+      {% for link in linklists.brows.links %}
+      <div class="collection-thumb-3">
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <div class="collection-thumb-title">
+          {{ link.object.title | escape }} | {{ link.object.price | money }}
+        </div>
+        <div class="collection-thumb-desc">{{ link.object.description }}</div>
+        <a href="{{ page.metafields.global.makeup-link }}" class="collection-thumb-link" target="_blank">
+          <div>Book Now</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 
 {% section 'component-book-cta' %}
-

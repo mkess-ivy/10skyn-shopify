@@ -1,18 +1,12 @@
 <div class="clear"></div>
-<div class="sk-section-name">{{ section.settings.favorites-name }}</div>
-<div>{{ section.settings.favorites-name }}</div>
-<div class="featured-collections">
-  <div class="frow justify-start">
-    {% for link in linklists.favorites.links %}
-    <div class="collection-thumb">
-      <a href="{{ link.url }}"><img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}"></a>
-      <h3 class="collection-thumb-title">
-        <a href="{{ link.url }}">{{ link.object.title | escape }}</a><br/>
-      </h3>
-    </div>
-    {% endfor %}
-  </div>
-</div>
+<section class="sk-section-wrapper">
+  <div class="sk-section-name">{{ section.settings.favorites-name }}</div>
+  
+  {% if section.settings.favorites-description %}
+  <div class="sk-section-description">{{ section.settings.favorites_description }}</div>
+{% endif %}
+</section>
+
 
 {% schema %}
 {
@@ -23,6 +17,11 @@
             "id": "favorites-name",
             "label": "Favorites Title"
 
+        },
+        {
+          "type": "text",
+          "id": "favorites-description",
+          "label": "Favorites Description"
         }
     ]
 }

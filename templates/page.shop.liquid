@@ -1,18 +1,6 @@
 {% section 'shop-section-001' %}
 
-<div class="featured-collections">
-  <div class="frow justify-start">
-    {% for link in linklists.shop.links %}
-    {% assign collection = link.object %}
-    <div class="collection-thumb">
-      <img class="collection-thumb-img" src="{{ collection.image | img_url: 'medium' }}">
-      <h3 class="collection-thumb-title">
-        <a href="{{ link.url }}">{{ collection.title | escape }}</a>
-      </h3>
-    </div>
-    {% endfor %}
-  </div>
-</div>
+{% section 'shop-linklist' %}
 
 {% section 'shop-alpha' %}
 

@@ -1,7 +1,24 @@
 {% section 'microblading-section' %}
 
-{% assign c = "microblading" %}
-{% render 'variable-linklist-three' with linklistHandle: c %}
+<div class="sk-product-wrapper">
+  <div class="featured-collection-3col">
+    <div class="frow justify-start">
+      {% for link in linklists.microblading.links %}
+      <div class="collection-thumb-3">
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <div class="collection-thumb-title">
+          {{ link.object.title | escape }} | {{ link.object.price | money }}
+        </div>
+        <div class="collection-thumb-desc">{{ link.object.description }}</div>
+        <a href="{{ page.metafields.global.microblading-link }}" class="collection-thumb-link" target="_blank">
+          <div>Book Now</div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 
 {% section 'microblading-alpha' %}
 
