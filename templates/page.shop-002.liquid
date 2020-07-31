@@ -5,12 +5,14 @@
       <div class="frow justify-start">
         {% for link in linklists.eyelashes.links %}
         <div class="collection-thumb-3">
-          <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+          <a href="{{ link.url }}">
+            <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+          </a>
           <div class="collection-thumb-title">
             {{ link.object.title | escape }} | {{ link.object.price | money }}
           </div>
           <div class="collection-thumb-desc">{{ link.object.description }}</div>
-          <a href="{{ product.url }}" class="collection-product-link" target="_blank">
+          <a href="{{ link.url }}" class="collection-product-link">
             <div>View Product</div>
           </a>
         </div>
@@ -26,12 +28,12 @@
       <div class="frow justify-start">
         {% for link in linklists.skin-facial-care.links %}
         <div class="collection-thumb-3">
-          <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+          <a href="{{ link.url }}"></a><img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
           <div class="collection-thumb-title">
             {{ link.object.title | escape }} | {{ link.object.price | money }}
           </div>
           <div class="collection-thumb-desc">{{ link.object.description }}</div>
-          <a href="{{ product.url }}" class="collection-product-link" target="_blank">
+          <a href="{{ link.url }}" class="collection-product-link">
             <div>View Product</div>
           </a>
         </div>

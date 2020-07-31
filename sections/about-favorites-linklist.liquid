@@ -1,7 +1,7 @@
 <div class="featured-collection-3col">
     <div class="frow justify-between">
       {% for link in linklists.favorites.links %}
-      <div class="collection-thumb-3 no-margin">
+      <div class="collection-thumb-3">
         <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
         <div class="collection-thumb-title">
           {{ link.object.title | escape }} | {{ link.object.price | money }}
