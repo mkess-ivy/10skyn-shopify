@@ -1,4 +1,4 @@
-<section class="cta-bg" style="background-image: url('{{ section.settings.book-bg-img | img_url: 'large' }}');">
+<section class="cta-bg" style="background-color: {{ section.settings.cta-bg-color }};">
     <div class="cta-section">
         <div class="cta-title">{{ section.settings.book-cta-title }}</div>
         <div class="cta-description">{{ section.settings.book-cta-description }}</div>
@@ -10,12 +10,13 @@
 
 {% schema %}
 {
-    "name": "Book w/ 10SKYN",
+    "name": "Book w/ 10SKYN Other",
     "settings": [
         {
-            "type": "image_picker",
-            "id": "book-bg-img",
-            "label": "Background Image"
+            "type": "color",
+            "id": "cta-bg-color",
+            "label": "Background Color",
+            "default": "#fff"
         },
         {
             "type": "text",

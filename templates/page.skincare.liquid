@@ -5,7 +5,7 @@
     <div class="frow justify-start">
       {% for link in linklists.skincare.links %}
       <div class="collection-thumb-3">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
         <div class="collection-thumb-title">
           {{ link.object.title | escape }} | {{ link.object.price | money }}
         </div>
@@ -24,4 +24,4 @@
 
 {% section 'skincare-faqs-002' %}
 
-{% section 'component-book-cta' %}
+{% section 'component-book-cta-other' %}

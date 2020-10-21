@@ -63,36 +63,40 @@
 
   <div class="site-wrap">
     <div id="wrapper">
-    {% section'header' %}
-    {% if template contains 'collection' %}
-    {% if collection.description contains '[banner]' %}
-    {% capture banner %}{{ collection.handle }}.jpg{% endcapture %}
-    <div class="collection-banner">
-      <img src="{{ banner | file_url }}" alt="{{ collection.title }}">
-    </div>
-    {% endif %}
-    {% endif %}
+      {% section'header' %}
+      
+      {% if template contains 'collection' %}
+        {% if collection.description contains '[banner]' %}
+          {% capture banner %}{{ collection.handle }}.jpg{% endcapture %}
+      
+          <div class="collection-banner">
+            <img src="{{ banner | file_url }}" alt="{{ collection.title }}">
+          </div>
 
-    {% if template contains 'index' or template contains 'blog' or template contains 'list-collections' or template contains 'page.custom-' or template contains 'product.custom-' or template contains 'collection.custom-' %}
-     {{ content_for_layout }}
+        {% endif %}
+      {% endif %}
+
+      {% if template contains 'index' or template contains 'blog' or template contains 'list-collections' or template contains 'page.custom-' or template contains 'product.custom-' or template contains 'collection.custom-' %}
+        {{ content_for_layout }}
      
-     {%elsif template contains 'story' %}
-     {% section 'page-custom-two' %}
-     {{ content_for_layout }}
+        {%elsif template contains 'story' %}
+          {% section 'page-custom-two' %}
+          {{ content_for_layout }}
 
-     {% else %}
+        {% else %}
 
-    {% section 'page-custom-two' %}
-     <div id="content" class="row">
-       {% comment %} {% include 'breadcrumb' %} {% endcomment %}
-       {{ content_for_layout }}
-     </div>
-    {% endif %}
+          {% section 'page-custom-two' %}
+          <div id="content" class="row">
+            {% comment %} {% include 'breadcrumb' %} {% endcomment %}
+            {{ content_for_layout }}
+          </div>
+      {% endif %}
 
       <div class="clear"></div>
     </div> <!-- End wrapper -->
     {% section 'footer' %}
   </div>
+  
   {% if settings.popup %}
     {% include 'popup' %}
   {% endif %}
@@ -121,6 +125,7 @@
    });
    </script>
   {% endif %}
+  
   {% if settings.ajax_cart_method == 'mini' %}
    {% include 'mini-cart-template' %}
   {% endif %}

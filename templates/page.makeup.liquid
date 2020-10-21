@@ -5,7 +5,7 @@
     <div class="frow justify-start">
       {% for link in linklists.iconic-makeup.links %}
       <div class="collection-thumb-3">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
         <div class="collection-thumb-title">
           {{ link.object.title | escape }} | {{ link.object.price | money }}
         </div>
@@ -28,7 +28,7 @@
     <div class="frow justify-start">
       {% for link in linklists.bridal-makeup.links %}
       <div class="collection-thumb-3">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
         <div class="collection-thumb-title">
           {{ link.object.title | escape }} | {{ link.object.price | money }}
         </div>
@@ -50,7 +50,7 @@
     <div class="frow justify-start">
       {% for link in linklists.brows.links %}
       <div class="collection-thumb-3">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
         <div class="collection-thumb-title">
           {{ link.object.title | escape }} | {{ link.object.price | money }}
         </div>
@@ -65,4 +65,4 @@
 </div>
 
 
-{% section 'component-book-cta' %}
+{% section 'component-book-cta-other' %}

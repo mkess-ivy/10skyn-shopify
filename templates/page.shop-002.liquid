@@ -6,7 +6,7 @@
         {% for link in linklists.eyelashes.links %}
         <div class="collection-thumb-3">
           <a href="{{ link.url }}">
-            <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+            <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
           </a>
           <div class="collection-thumb-title">
             {{ link.object.title | escape }} | {{ link.object.price | money }}
@@ -28,7 +28,7 @@
       <div class="frow justify-start">
         {% for link in linklists.skin-facial-care.links %}
         <div class="collection-thumb-3">
-          <a href="{{ link.url }}"></a><img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+          <a href="{{ link.url }}"><img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" /></a>
           <div class="collection-thumb-title">
             {{ link.object.title | escape }} | {{ link.object.price | money }}
           </div>
@@ -42,4 +42,4 @@
     </div>
 </div>
 
-{% section 'component-book-cta' %}
+{% section 'component-book-cta-other' %}

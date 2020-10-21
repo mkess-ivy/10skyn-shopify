@@ -1,9 +1,10 @@
 <div class="clear"></div>
 <section class="reviews">
     <div class="frow centered">
-        <div class="reviews-bg" style="background-image:url('{{ section.settings.reviews-bg.src | img_url: 'large' }}');">
-            Press Play
-
+        <div class="reviews-bg" style="background-image:url('{{ section.settings.reviews-bg.src | img_url: 'master' }}'); color: {{ section.settings.reviews-quote-color }};">
+            <div class="reviews-small">{{ section.settings.reviews-title }}</div>
+            <div class="reviews-msg">{{ section.settings.reviews-quote }}</div>
+            <div class="reviews-small">{{ section.settings.reviews-author }}</div>
         </div>
     </div>
 </section>
@@ -22,6 +23,26 @@
             "type": "image_picker",
             "id": "reviews-bg",
             "label": "Background Image"
+        },
+        {
+            "type": "color",
+            "id": "reviews-quote-color",
+            "label": "Reviews Text Color"
+        },
+        {
+            "type": "text",
+            "id": "reviews-title",
+            "label": "Section Title"
+        },
+        {
+            "type": "textarea",
+            "id": "reviews-quote",
+            "label": "Reviews Quote"
+        },
+        {
+            "type": "text",
+            "id": "reviews-author",
+            "label": "Author's Name"
         }
     ]
 }
