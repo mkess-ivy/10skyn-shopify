@@ -5,7 +5,7 @@
     <div class="frow justify-between">
       {% for link in linklists.lash-extensions.links %}
       <div class="collection-thumb-2">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
         <div class="collection-thumb-title">
           {{ link.object.title | escape }} | {{ link.object.price | money }}
         </div>
@@ -28,7 +28,7 @@
     <div class="frow justify-between">
       {% for link in linklists.fill-ins-collection.links %}
       <div class="collection-thumb-2">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'medium' }}" />
+        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
         <div class="collection-thumb-title">
           {{ link.object.title | escape }} | {{ link.object.price | money }}
         </div>
