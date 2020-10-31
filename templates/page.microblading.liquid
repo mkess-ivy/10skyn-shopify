@@ -5,12 +5,20 @@
     <div class="frow justify-start">
       {% for link in linklists.microblading.links %}
       <div class="collection-thumb-3">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
+        <img
+          class="collection-thumb-img"
+          src="{{ link.object.featured_image | img_url: 'master' }}"
+        />
         <div class="collection-thumb-title">
-          {{ link.object.title | escape }} | {{ link.object.price | money }}
+          {{ link.object.title | escape }} 
+          <div class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
         </div>
         <div class="collection-thumb-desc">{{ link.object.description }}</div>
-        <a href="{{ page.metafields.global.microblading-link }}" class="collection-thumb-link" target="_blank">
+        <a
+          href="{{ page.metafields.global.microblading - link }}"
+          class="collection-thumb-link"
+          target="_blank">
+          
           <div>Book Now</div>
         </a>
       </div>
@@ -19,14 +27,8 @@
   </div>
 </div>
 
-
-{% section 'microblading-alpha' %}
-
-{% section 'microblading-ntk' %}
-
-{% section 'microblading-faqs-001' %}
-
-{% section 'microblading-faqs-002' %}
-
+{% section 'microblading-alpha' %} 
+{% section 'microblading-ntk' %} 
+{% section 'microblading-faqs-001' %} 
+{% section 'microblading-faqs-002' %} 
 {% section 'component-book-cta-other' %}
-
