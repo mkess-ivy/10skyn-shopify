@@ -393,7 +393,8 @@
 .collection-thumb-3 {
     width: 29%;
     margin-right: 40px;
-    margin-bottom: 100px;
+    /* margin-bottom: 100px; */
+    margin-bottom: 25px;
 }
 .collection-thumb-3 img {
     /* width: 100%; */
@@ -538,10 +539,10 @@
 
 .ntk-option {
     width: 31%;
-    background: var(--blue);
+    /* background: var(--blue); */
     text-align: center;
     padding: 10px 20px 30px;
-    color: var(--white);
+    color: #000;
 }
 .ntk-option-title {
     padding: calc(var(--title-space) - 10px) 0;
@@ -592,12 +593,10 @@
     margin: 0 auto;
     padding: var(--section-space) 0;
 }
-
 .about .text-combo,
 .about-reverse .text-combo {
     width: 40%;
 }
-
 .team-single {
     width: 30%;
     margin-bottom: var(--section-space);
@@ -611,6 +610,13 @@
     text-transform: uppercase;
     color: var(--detail-color);
     padding-bottom: 10px;
+}
+.about-banner {
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 70vh;
+    width:100%;
 }
 
 @media screen and (max-width:992px) {
@@ -751,4 +757,21 @@
     max-width: 1000px;
     margin: auto;
     width: 80%;
+}
+
+
+/* Footer Adjustments */
+.footer-text p,
+.footer-social p {
+    font-size: 14px;
+    line-height: 1.4;
+}
+.footer-menu ul li a {
+    font-size: 14px;
+}
+#footer-signup {
+    margin-top: 20px;
+}
+.footer-left a {
+    font-size: 12px;
 }

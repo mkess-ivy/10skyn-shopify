@@ -4,12 +4,13 @@
       <div class="collection-thumb-3">
         <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
         <div class="collection-thumb-title">
-          {{ link.object.title | escape }} | {{ link.object.price | money }}
+          {{ link.object.title | escape }}
+          <div class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
         </div>
         <div class="collection-thumb-desc">{{ link.object.description }}</div>
-        <a href="{{ link.url }}" class="collection-thumb-link">
+        <!-- <a href="{{ link.url }}" class="collection-thumb-link">
           <div>Book Now</div>
-        </a>
+        </a> -->
       </div>
     {% endfor %}
   </div>

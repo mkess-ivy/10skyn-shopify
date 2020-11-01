@@ -7,12 +7,13 @@
       <div class="collection-thumb-3">
         <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
         <div class="collection-thumb-title">
-          {{ link.object.title | escape }} | {{ link.object.price | money }}
+          {{ link.object.title | escape }} 
+          <div  class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
         </div>
         <div class="collection-thumb-desc">{{ link.object.description }}</div>
-        <a href="{{ page.metafields.global.waxing-link }}" class="collection-thumb-link" target="_blank">
+        <!-- <a href="{{ page.metafields.global.waxing-link }}" class="collection-thumb-link" target="_blank">
           <div>Book Now</div>
-        </a>
+        </a> -->
       </div>
       {% endfor %}
     </div>
@@ -29,18 +30,20 @@
       <div class="collection-thumb-3">
         <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
         <div class="collection-thumb-title">
-          {{ link.object.title | escape }} | {{ link.object.price | money }}
+          {{ link.object.title | escape }} 
+          <div  class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
         </div>
         <div class="collection-thumb-desc">{{ link.object.description }}</div>
-        <a href="{{ page.metafields.global.waxing-link }}" class="collection-thumb-link" target="_blank">
+        <!-- <a href="{{ page.metafields.global.waxing-link }}" class="collection-thumb-link" target="_blank">
           <div>Book Now</div>
-        </a>
+        </a> -->
       </div>
       {% endfor %}
     </div>
   </div>
 </div>
 
+{% section 'waxing-alpha' %}
 
 {% section 'waxing-faqs-001' %}
 

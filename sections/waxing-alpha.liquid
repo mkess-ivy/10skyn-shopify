@@ -1,0 +1,53 @@
+<section class="sk-alpha-wrapper">
+    <div class="frow justify-between">
+        <div class="right-img" style="background-image: url('{{ section.settings.micro-alpha-image | img_url: 'large' }}');"></div>
+
+        <div class="text-combo">
+            <div class="frow centered-column">
+                <div class="text-combo-title">{{ section.settings.micro-alpha-name }}</div>
+                <div class="text-combo-desc">{{ section.settings.micro-alpha-desc }}</div>
+                <a class="text-combo-btn" href="{{ section.settings.alpha-btn-link }}">
+                    <div>{{ section.settings.alpha-btn-text }}</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Waxing Alpha",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "micro-alpha-image",
+            "label": "Alpha Image"
+        },
+        {
+            "type": "text",
+            "id": "micro-image-alt",
+            "label": "Alt description for Image"
+        },
+        {
+            "type": "text",
+            "id": "micro-alpha-name",
+            "label": "Name of Alpha Content"
+        },
+        {
+            "type":  "textarea",
+            "id": "micro-alpha-desc",
+            "label": "Alpha Description"
+        },
+        {
+            "type": "text",
+            "id":  "alpha-btn-text",
+            "label": "Alpha CTA Text"
+        },
+        {
+            "type": "url",
+            "id":  "alpha-btn-link",
+            "label": "Alpha CTA Link"
+        }
+    ]
+}
+{% endschema %}
