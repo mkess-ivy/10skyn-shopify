@@ -1,0 +1,16 @@
+<section class="about-banner" style="background-image:url('{{ section.settings.banner.src | img_url: 'master' }}');">
+
+</section>
+
+{% schema %}
+{
+    "name": "Makeup Banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "banner",
+            "label": "Background Image"
+        }   
+    ]
+}
+{% endschema %}

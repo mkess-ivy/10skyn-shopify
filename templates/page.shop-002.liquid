@@ -4,17 +4,18 @@
     <div class="featured-collection-3col">
       <div class="frow justify-start">
         {% for link in linklists.eyelashes.links %}
-        <div class="collection-thumb-3">
+        <div class="collection-thumb-3 shop">
           <a href="{{ link.url }}">
             <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
           </a>
           <div class="collection-thumb-title">
-            {{ link.object.title | escape }} | {{ link.object.price | money }}
+            {{ link.object.title | escape }}
+            <div class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
+            <div style="padding:8px 0;"></div>
+            <a class="book-btn" href="{{ link.url }}" target="_blank" alt="View {{ link.object.title }}">
+              <div>View Product</div>
+            </a>
           </div>
-          <div class="collection-thumb-desc">{{ link.object.description }}</div>
-          <a href="{{ link.url }}" class="collection-product-link">
-            <div>View Product</div>
-          </a>
         </div>
         {% endfor %}
       </div>
@@ -27,19 +28,23 @@
     <div class="featured-collection-3col">
       <div class="frow justify-start">
         {% for link in linklists.skin-facial-care.links %}
-        <div class="collection-thumb-3">
+        <div class="collection-thumb-3 shop">
           <a href="{{ link.url }}"><img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" /></a>
           <div class="collection-thumb-title">
-            {{ link.object.title | escape }} | {{ link.object.price | money }}
+            {{ link.object.title | escape }}
+            <div class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
+            <div style="padding:8px 0;"></div>
+            <a class="book-btn" href="{{ link.url }}" target="_blank" alt="View {{ link.object.title }}">
+              <div>View Product</div>
+            </a>
           </div>
-          <div class="collection-thumb-desc">{{ link.object.description }}</div>
-          <a href="{{ link.url }}" class="collection-product-link">
-            <div>View Product</div>
-          </a>
+          
         </div>
         {% endfor %}
       </div>
     </div>
 </div>
+
+{% section 'shop-alpha' %}
 
 {% section 'component-book-cta-other' %}

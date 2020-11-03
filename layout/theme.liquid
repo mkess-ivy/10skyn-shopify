@@ -79,8 +79,7 @@
       {% if template contains 'index' or template contains 'blog' or template contains 'list-collections' or template contains 'page.custom-' or template contains 'product.custom-' or template contains 'collection.custom-' %}
         {{ content_for_layout }}
      
-        {%elsif template contains 'story' %}
-          
+        {%elsif template contains 'story' or template contains 'makeup' or template contains 'skincare' or template contains 'lash-extensions' or template contains 'microblading' %}
           {{ content_for_layout }}
         {% else %}
 

@@ -1,27 +1,35 @@
-{% section 'skincare-section-001' %}
-
-<div class="sk-product-wrapper">
-  <div class="featured-collection-3col">
-    <div class="frow justify-start">
-      {% for link in linklists.skincare.links %}
-      <div class="collection-thumb-3">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
-        <div class="collection-thumb-title">
-          {{ link.object.title | escape }} | {{ link.object.price | money }}
-        </div>
-        <div class="collection-thumb-desc">{{ link.object.description }}</div>
-        <a href="{{ page.metafields.global.skincare-link }}" class="collection-thumb-link" target="_blank">
-          <div>Book Now</div>
-        </a>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+<div id="content">
+  {% section 'skincare-banner' %}
 </div>
 
+<div id="content" class="row">
+  {% section 'skincare-section-001' %}
 
-{% section 'skincare-faqs-001' %}
+  <div class="sk-product-wrapper">
+    <div class="featured-collection-3col">
+      <div class="frow justify-start">
+        {% for link in linklists.skincare.links %}
+        <div class="collection-thumb-3">
+          <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
+          <div class="collection-thumb-title">
+            {{ link.object.title | escape }}
+            <div class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
+          </div>
+          <div class="collection-thumb-desc">{{ link.object.description }}</div>
+          <!-- <a href="{{ page.metafields.global.skincare-link }}" class="collection-thumb-link" target="_blank">
+            <div>Book Now</div>
+          </a> -->
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 
-{% section 'skincare-faqs-002' %}
+  {% section 'skincare-alpha' %}
+
+  {% section 'skincare-faqs-001' %}
+
+  {% section 'skincare-faqs-002' %}
+</div>
 
 {% section 'component-book-cta-other' %}

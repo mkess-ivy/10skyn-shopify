@@ -1,28 +1,35 @@
-{% section 'microblading-section' %}
-
-<div class="sk-product-wrapper">
-  <div class="featured-collection-3col">
-    <div class="frow justify-start">
-      {% for link in linklists.microblading.links %}
-      <div class="collection-thumb-3">
-        <img
-          class="collection-thumb-img"
-          src="{{ link.object.featured_image | img_url: 'master' }}"
-        />
-        <div class="collection-thumb-title">
-          {{ link.object.title | escape }} 
-          <div class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
-        </div>
-        <div class="collection-thumb-desc">{{ link.object.description }}</div>
-        
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+<div id="content">
+  {% section 'microblading-banner' %}
 </div>
 
-{% section 'microblading-alpha' %} 
-{% section 'microblading-ntk' %} 
-{% section 'microblading-faqs-001' %} 
-{% section 'microblading-faqs-002' %} 
+<div id="content" class="row">
+  {% section 'microblading-section' %}
+
+  <div class="sk-product-wrapper">
+    <div class="featured-collection-3col">
+      <div class="frow justify-start">
+        {% for link in linklists.microblading.links %}
+        <div class="collection-thumb-3">
+          <img
+            class="collection-thumb-img"
+            src="{{ link.object.featured_image | img_url: 'master' }}"
+          />
+          <div class="collection-thumb-title">
+            {{ link.object.title | escape }} 
+            <div class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
+          </div>
+          <div class="collection-thumb-desc">{{ link.object.description }}</div>
+          
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% section 'microblading-alpha' %} 
+  {% section 'microblading-ntk' %} 
+  {% section 'microblading-faqs-001' %} 
+  {% section 'microblading-faqs-002' %}
+</div>
+ 
 {% section 'component-book-cta-other' %}

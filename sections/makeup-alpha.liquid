@@ -1,47 +1,41 @@
-<div class="clear"></div>
-<section class="sk-section-wrapper about-reverse">
+<section class="sk-alpha-wrapper">
     <div class="frow justify-between">
-        
+        <div class="right-img" style="background-image: url('{{ section.settings.micro-alpha-image | img_url: 'master' }}');"></div>
 
         <div class="text-combo">
             <div class="frow centered-column">
-                <div class="text-combo-title">{{ section.settings.about-alpha-name }}</div>
-                <div class="text-combo-desc">{{ section.settings.about-alpha-desc }}</div>
-                
-                {% if section.settings.alpha-btn-link %}
-                <a class="text-combo-btn" href="{{ section.settings.alpha-btn-link }}">
+                <div class="text-combo-title">{{ section.settings.micro-alpha-name }}</div>
+                <div class="text-combo-desc">{{ section.settings.micro-alpha-desc }}</div>
+                <a class="text-combo-btn" target="_blank" href="{{ section.settings.alpha-btn-link }}">
                     <div>{{ section.settings.alpha-btn-text }}</div>
                 </a>
-                {% endif %}
-
             </div>
         </div>
-        <div class="right-img" style="background-image: url('{{ section.settings.about-alpha-image | img_url: 'master' }}');"></div>
     </div>
 </section>
 
 {% schema %}
 {
-    "name": "About Alpha Reverse",
+    "name": "Makeup Alpha",
     "settings": [
         {
             "type": "image_picker",
-            "id": "about-alpha-image",
+            "id": "micro-alpha-image",
             "label": "Alpha Image"
         },
         {
             "type": "text",
-            "id": "about-image-alt",
+            "id": "micro-image-alt",
             "label": "Alt description for Image"
         },
         {
             "type": "text",
-            "id": "about-alpha-name",
+            "id": "micro-alpha-name",
             "label": "Name of Alpha Content"
         },
         {
             "type":  "textarea",
-            "id": "about-alpha-desc",
+            "id": "micro-alpha-desc",
             "label": "Alpha Description"
         },
         {

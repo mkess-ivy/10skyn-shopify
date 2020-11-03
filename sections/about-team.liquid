@@ -5,7 +5,6 @@
         <div class="sk-section-name">{{ section.settings.team_title }}</div>
     </section>
     
-    
     <div class="frow justify-between">
     {% for block in section.blocks %}
     <div class="team-single">
@@ -14,7 +13,7 @@
         <div class="team-position">{{ block.settings.team_position }}</div>
         
         <a class="book-btn" href="{{ section.settings.book_url }}" target="_blank" alt="Book with {{ section.settings.team-name }}">
-            <div>Book with me</div>
+            <div>Book with {{ block.settings.team_name }}</div>
         </a>
     </div>
     {% endfor %}

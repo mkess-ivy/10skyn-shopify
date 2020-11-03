@@ -12,6 +12,7 @@
     --link-hover: red;
     --blue: #84C5C3;
     --white: #fff;
+    --black: #1d1d1d;
 }
 
 /* Global Styles */
@@ -184,7 +185,7 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    width: 50%;
+    width: 60%;
     height: calc(var(--height-var) * 15);
 
 }
@@ -199,7 +200,7 @@
     font-size: 14px;
     text-align: center;
     padding: 10px 7px;
-    background-color: var(--btn-bg);
+    background-color: var(--black);
     color: var(--btn-color);
     text-transform: uppercase;
     border-radius: 4px;
@@ -209,6 +210,7 @@
     font-size: 48px;
     font-family: var(--main-font);
     padding-bottom: var(--title-space);
+    width: 100%;
 }
 .text-combo-desc {
     font-size: 18px;
@@ -279,12 +281,12 @@
 /* FAQs */
 
 .accordion-item {
-    border: 1px solid var(--faqs-bg);
+    border: 1px solid var(--black);
     margin-bottom: 10px;
 }
 .accordion-item a {
     display: block;
-    background: var(--faqs-bg);
+    background: var(--black);
     padding: 15px 10px;
     color: var(--link-color ) !important;
     transition: none;
@@ -340,11 +342,11 @@
     color: white;
 }
 .cta-btn div {
-  font-size: 16px;
+  font-size: 14px;
   text-transform: uppercase;
-  background: black;
+  background: var(--black);
   color: white;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   width: 130px;
   padding: 10px 0;
   margin: auto;
@@ -352,6 +354,8 @@
   transition: 1s;
   -webkit-transition: 1s;
   font-weight: bold;
+  border-radius: 4px;
+  box-shadow: 3px 3px 3px var(--detail-color);
 }
 .cta-btn div:hover {
     background: transparent;
@@ -391,10 +395,13 @@
     margin: 0 auto;
 }
 .collection-thumb-3 {
-    width: 29%;
-    margin-right: 40px;
+    width: 30%;
+    margin-right: 30px;
     /* margin-bottom: 100px; */
     margin-bottom: 25px;
+}
+.collection-thumb-3.shop {
+    margin-bottom: 75px;
 }
 .collection-thumb-3 img {
     /* width: 100%; */
@@ -428,6 +435,9 @@
 .collection-thumb-desc {
     /* text-align: center; */
     margin-bottom: 20px;
+}
+.collection-thumb-desc p {
+    font-size:16px;
 }
 .collection-price {
     font-size: 14px;
@@ -589,13 +599,19 @@
 /* Our Story  */
 .sk-section-wrapper.about,
 .sk-section-wrapper.about-reverse {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     padding: var(--section-space) 0;
 }
 .about .text-combo,
 .about-reverse .text-combo {
     width: 40%;
+}
+.about .text-combo {
+    padding-left: 50px;
+}
+.about-reverse .text-combo {
+    padding-right: 50px;
 }
 .team-single {
     width: 30%;
@@ -615,7 +631,7 @@
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 70vh;
+    height: 55vh;
     width:100%;
 }
 
