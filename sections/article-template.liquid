@@ -8,7 +8,7 @@
   <div id="page">
     
     <section class="sk-section-wrapper blog-article">
-      <div class="sk-section-name">{{ article.title }}</div>
+      <div class="sk-section-name blog-article-title">{{ article.title }}</div>
     </section>
     {% paginate article.comments by 20 %}
       <div id="article-body" class="desktop-12 tablet-6 mobile-3">
@@ -18,7 +18,7 @@
         <div class="article-hero-image">
           {% if article.image and section.settings.show_image %}
           {%- include 'basic-responsive-image', type: article.image -%}
-          {% if article.image.alt %}<p class="caption">{{ article.image.alt }}</p>{% endif %}
+          
           <noscript>
             <img src="{{ article.image | img_url: '800x' }}" alt="{{ article.image.alt }}">
           </noscript>

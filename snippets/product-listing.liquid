@@ -86,8 +86,10 @@
         </div>
       {% endif %}
     </div>
+    {% if product.metafields.services.booking-link %}
     <a class="booking-link" href="{{product.metafields.services.booking-link}}">
       <div>Book Now</div>
     </a>
+    {% endif %}
   </div>
 </div>

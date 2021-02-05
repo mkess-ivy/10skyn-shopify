@@ -1,52 +1,18 @@
-{% section 'waxing-section-one' %}
 
-<div class="sk-product-wrapper">
-  <div class="featured-collection-3col">
-    <div class="frow justify-start">
-      {% for link in linklists.bikini-facial-waxing.links %}
-      <div class="collection-thumb-3">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
-        <div class="collection-thumb-title">
-          {{ link.object.title | escape }} 
-          <div  class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
-        </div>
-        <div class="collection-thumb-desc">{{ link.object.description }}</div>
-        <!-- <a href="{{ page.metafields.global.waxing-link }}" class="collection-thumb-link" target="_blank">
-          <div>Book Now</div>
-        </a> -->
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+
+<div id="content" class="row">
+  {% section 'waxing-section-one' %}
+
+  {% section 'waxing-section-list' %}
+
+
+  
+
+  {% section 'waxing-alpha' %}
+
+  {% section 'waxing-faqs-001' %}
+
+  {% section 'waxing-faqs-002' %}
 </div>
-
-
-{% section 'waxing-section-two' %}
-
-<div class="sk-product-wrapper">
-  <div class="featured-collection-3col">
-    <div class="frow justify-start">
-      {% for link in linklists.body-waxing.links %}
-      <div class="collection-thumb-3">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
-        <div class="collection-thumb-title">
-          {{ link.object.title | escape }} 
-          <div  class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
-        </div>
-        <div class="collection-thumb-desc">{{ link.object.description }}</div>
-        <!-- <a href="{{ page.metafields.global.waxing-link }}" class="collection-thumb-link" target="_blank">
-          <div>Book Now</div>
-        </a> -->
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-
-{% section 'waxing-alpha' %}
-
-{% section 'waxing-faqs-001' %}
-
-{% section 'waxing-faqs-002' %}
 
 {% section 'component-book-cta-other' %}

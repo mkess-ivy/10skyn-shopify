@@ -3,6 +3,9 @@
 <section class="team">
     <section class="sk-section-wrapper">
         <div class="sk-section-name">{{ section.settings.team_title }}</div>
+        {% if section.settings.description %}
+        <div class="sk-section-description">{{ section.settings.description }}</div>
+      {% endif %}
     </section>
     
     <div class="frow justify-between">
@@ -28,6 +31,11 @@
             "type": "text",
             "id": "team_title",
             "label": "Team Title"
+        },
+        {
+            "type": "textarea",
+            "id": "description",
+            "label": "Team Description"
         }
     ],
     "blocks": [

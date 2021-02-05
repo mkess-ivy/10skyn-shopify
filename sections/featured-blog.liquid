@@ -65,13 +65,14 @@
 
 <style>
   .homepage-blog-posts-{{ section.id }} {
-    padding: 20px 0;
+    padding-top: 0 !important;
   }
   .homepage-blog-posts-{{ section.id }} h2.section-title a {
     color: {{ section.settings.heading_color }} !important;
   }
   .homepage-blog-posts-{{ section.id }} .article-index {
     text-align: {{ section.settings.text_align }};
+    /*width: 100% !important;*/
   }
   @media (min-width: 980px) {
     {% if section.settings.posts_per_row > 1 %}

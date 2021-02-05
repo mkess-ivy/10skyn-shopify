@@ -82,12 +82,12 @@
         <div class="featured-product">
           {% assign product = all_products[block.settings.featured_product] %}
           {% if product != blank %}
-            <h3>{{ product.title }}</h3>
+          <a href="{{ product.url }}"><h3>{{ product.title }}</h3></a>
             {% include 'basic-responsive-image', type: product.featured_media %}
             <noscript>
               <img src="{{ product.featured_media | img_url: '800x' }}" alt="{{ product.featured_media.alt }}">
             </noscript>
-            <a href="{{ product.url }}" class="shop-product">{{ 'products.general.shop_this' | t }}</a>
+            
           {% else %}
             <h3>Product Title</h3>
             {{ 'product-1' | placeholder_svg_tag }}
@@ -134,7 +134,7 @@
   }
   @media (max-width: 980px) {
     .homepage-featured-collection-{{ section.id }} {
-      height: 1104px;
+      height: auto;
     }
   }
   .homepage-featured-collection-{{ section.id }} .collection-image {
@@ -226,6 +226,7 @@
   flex-direction: row;
   align-items: flex-start;
   width: 100%;
+  display: none;
  }
 .featured-collections-slider .arrow-container > a {
   padding-right: 5%;

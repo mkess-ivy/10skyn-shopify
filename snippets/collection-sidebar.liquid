@@ -69,6 +69,7 @@
                 {% for product_vendor in shop.vendors %}
                   <li>{{ product_vendor | link_to_vendor  }}</li>
                 {% endfor %}
+                  <li><a href="/collections/all">All</a></li>
               </ul>
             </div>
           {% else %}
@@ -86,11 +87,12 @@
                 </svg>
               </label>
               <ul class="styled-select coll-filter" style="display: none;">
-                {% for product_vendor in collection.all_vendors %}
+                {% for product_vendor in shop.vendors %}
                   <li class="{{ product_vendor | handelize }}">
                     {{ product_vendor | link_to_vendor }}
                   </li>
                 {% endfor %}
+                <li><a href="/collections/all">All</a></li>
               </ul>
             </div>
           {% endif %}

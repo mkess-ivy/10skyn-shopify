@@ -1,28 +1,40 @@
 <div data-section-id="{{ section.id }}">
 
   <div id="page" class="desktop-12 mobile-3 sk-contact-form">
-
-    {% if section.settings.form-position != 'center' %}
-      <div id="contact-page" class="desktop-6 tablet-6 mobile-3{% if section.settings.form-position == 'left' %} form-left{% endif %}">
-        <div class="rte" style="min-height: 1px">
-          {{ page.content }}
-        </div>
+    <div class="frow justify-between">
+      
+      <div>
+        {% if section.settings.form-position != 'center' %}
+          <div id="contact-page" class="desktop-6 tablet-6 mobile-3{% if section.settings.form-position == 'left' %} form-left{% endif %}">
+            <div class="rte" style="min-height: 1px">
+              {% for  block in section.blocks %}
+              <div class="contact_group">
+                <div class="contact_title">{{ block.settings.contact_title}}</div>
+                <div class="contact_desc">{{ block.settings.contact_copy }}</div>
+              </div>
+              {% endfor %}
+              {{ page.content }}
+            </div>
+          </div>
+    
+          <div class="desktop-6 mobile-3 tablet-6">
+            <div class="contact_title">{{ section.settings.contact_title }}</div>
+            {% include 'custom-contact' type: section %}
+          </div>
+    
+        {% else %}
+    
+          {% comment %}If we have the contact form centered only {% endcomment %}
+          <div id="page" class="desktop-8 desktop-push-2 tablet-6 mobile-3 centered-form">
+            <div class="rte">
+              {{ page.content }}
+            </div>
+            {% include 'custom-contact' type: section %}
+          </div>
+        {% endif %}
       </div>
-
-      <div class="desktop-6 mobile-3 tablet-6">
-        {% include 'custom-contact' type: section %}
-      </div>
-
-    {% else %}
-
-      {% comment %}If we have the contact form centered only {% endcomment %}
-      <div id="page" class="desktop-8 desktop-push-2 tablet-6 mobile-3 centered-form">
-        <div class="rte">
-          {{ page.content }}
-        </div>
-        {% include 'custom-contact' type: section %}
-      </div>
-    {% endif %}
+    </div>
+    
 
   </div>
 </div>
@@ -155,7 +167,30 @@
           "label": "Single line text"
         }
       ]
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Contact Title"
     }
+    ],
+    "blocks": [
+      {
+        "type": "component",
+        "name": "Need Help?",
+        "settings": [
+          {
+            "type": "text",
+            "id": "contact_title",
+            "label": "Contact Title"
+          },
+          {
+            "type": "textarea",
+            "id": "contact_copy",
+            "label": "Contact Copy"
+          }
+        ]
+      }
     ]
   }
 {% endschema %}

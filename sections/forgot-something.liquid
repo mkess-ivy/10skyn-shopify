@@ -1,0 +1,50 @@
+<section class="forgot_something">
+    <div class="frow centered">
+        <div class="headline_group">
+            <div class="headline">{{ section.settings.headline }}</div>
+            <div class="headline_links">
+                <div class="frow justify-between">
+                    <a class="cta" href="{{ section.settings.appt_link }}"><div>{{ section.settings.appt_link_text }}</div></a>
+                    <a class="cta" href="{{ section.settings.shop_link }}"><div>{{ section.settings.shop_link_text }}</div></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Forgot Something",
+    "settings": [
+        {
+            "type": "text",
+            "id": "headline",
+            "label": "Forgot Headline"
+        },
+        {
+            "type": "text",
+            "id": "appt_link_text",
+            "label": "Appointment Link Text"
+        },
+        {
+            "type": "url",
+            "id": "appt_link",
+            "label": "Appointment Link"
+        },
+        {
+            "type": "text",
+            "id": "shop_link_text",
+            "label": "Shop Link Text"
+        },
+        {
+            "type": "url",
+            "id": "shop_link",
+            "label": "Shop Link"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}

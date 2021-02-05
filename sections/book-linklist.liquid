@@ -5,9 +5,12 @@
     <div class="book-page-item">
       <a href="{{ block.settings.book-url }}"><div class="book-bg-img" style="background-image:url('{{ block.settings.book-image | img_url: 'master' }}');">
       </div></a>
-      <h3 class="collection-thumb-title">
+      <h3 class="collection-thumb-title book">
         <a href="{{ block.settings.book-url }}">{{ block.settings.book-title }}</a>
       </h3>
+      {% if block.settings.book-desc %}
+      <p class="collection-copy">{{ block.settings.book-desc }}</p>
+      {% endif %}
     </div>
     {% endfor %}
 
@@ -26,6 +29,11 @@
                     "type": "text",
                     "id": "book-title",
                     "label": "Book Title"                
+                },
+                {
+                  "type": "textarea",
+                  "id": "book-desc",
+                  "label": "Book Description"
                 },
                 {
                     "type": "url",

@@ -1,0 +1,36 @@
+<section class="subscribe_group">
+    <div class="frow centered">
+        <div class="headline_group">
+            <div class="headline">{{ section.settings.headline }}</div>
+            {% if section.settings.headline_desc %}
+                <div class="headline_desc">{{ section.settings.headline_desc }}</div>
+            {% endif %}
+            <div class="subscribe">
+                subscribe form here
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% schema %}
+{
+    "name": "Subscribe",
+    "settings": [
+        {
+            "type": "text",
+            "id": "headline",
+            "label": "Subscribe Headline"
+        },
+        {
+            "type": "textarea",
+            "id": "headline_desc",
+            "label": "Subscribe Desc"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}

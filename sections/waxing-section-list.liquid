@@ -1,0 +1,106 @@
+<section class="waxing_section">
+    <div class="waxing_section_bg" style="background-image:url('{{ section.settings.banner.src | img_url: 'master' }}');"></div>
+
+    <div class="waxing_list_group">
+        <div class="frow justify-between">
+            {% for block in section.blocks %}
+            <div class="waxing_group_single">
+                <div class="waxing_list_title">{{ block.settings.list_name }}</div>
+                <div class="waxing_list_desc">{{ block.settings.list_desc }}</div>
+                <div class="waxing_list">
+                    {{ block.settings.list_price}}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Waxing Group",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "banner",
+            "label": "Banner Image"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "component",
+            "name": "List of Items",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "list_name",
+                    "label": "Item Name"
+                },
+                {
+                    "type": "textarea",
+                    "id": "list_desc",
+                    "label": "Item Desc"
+                },
+                {
+                    "type": "textarea",
+                    "id": "list_price",
+                    "label": "Item Price"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.waxing_section_bg {
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    height: 75vh;
+    width: 100%;
+    margin-bottom: 75px;
+}
+.waxing_list_group {
+    
+}
+.waxing_group_single {
+    margin-bottom:75px;
+    font-size:18px;
+    width:25%;
+    border-right: 1px solid #000;
+    padding-left:40px;
+}
+.waxing_group_single:last-child {
+    border-right:0;
+}
+.waxing_list_title {
+    font-family: var(--main-font);
+    font-size:36px;
+    padding-bottom:25px;
+}
+.waxing_list_desc {
+    padding-bottom: 25px;
+    font-family: var(--body-font);
+    line-height:1.4;
+    width:75%;
+}
+.waxing_list {
+    font-family: var(--main-font);
+    line-height:1.6;
+    color: #828282;
+}
+
+@media screen and (max-width:992px) {
+    .waxing_group_single {
+        width:90%;
+        border-bottom: 1px solid;
+        margin: auto;
+        padding: 60px 15px;
+        border-right: 0;
+    }
+    .waxing_group_single:last-child {
+        border-bottom:0;
+    }
+}
+{% endstylesheet %}

@@ -1,0 +1,30 @@
+<section class="returns_section">
+    <h2 class="gamma-title">{{ section.settings.returns_title }}</h2>
+    <p class="gamma-desc">{{ section.settings.returns_desc }}</p>
+</section>
+
+{% schema %}
+{
+    "name": "Returns",
+    "settings": [
+        {
+            "type": "text",
+            "id": "returns_title",
+            "label": "Returns Title"
+        },
+        {
+            "type": "textarea",
+            "id": "returns_desc",
+            "label": "Returns Description"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.returns_section {
+    padding-bottom: 100px;
+    width:75%;
+    margin:auto;
+}
+{% endstylesheet %}
