@@ -1,11 +1,16 @@
-<section class="cta-bg other" style="background-color: {{ section.settings.cta-bg-color }};">
+{% if section.settings.cta-bg-color %}
+<section class="cta-bg other" style="background-color: {{ section.settings.cta-bg-color }}; ">
+{% endif %}
+
+{% if section.settings.book-bg-img %}
+<section class="cta-bg other" style="background-image: url('{{ section.settings.book-bg-img | img_url: 'master' }}');">
+{% endif %}
+
     <div class="cta-section">
         <div class="cta-title">{{ section.settings.book-cta-title }}</div>
         <div class="cta-description">{{ section.settings.book-cta-description }}</div>
         <a class="cta-btn" target="_blank" href="{{ section.settings.book-url }}"><div>{{ section.settings.book-url-title }}</div></a>
     </div>
-    
-    
 </section>
 
 {% schema %}
@@ -17,6 +22,11 @@
             "id": "cta-bg-color",
             "label": "Background Color",
             "default": "#fff"
+        },
+        {
+            "type": "image_picker",
+            "id": "book-bg-img", 
+            "label": "Background Image"
         },
         {
             "type": "text",
