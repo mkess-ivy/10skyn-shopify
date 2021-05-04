@@ -2,9 +2,9 @@
   <div class="frow justify-between">
     {% for link in linklists.favorites.links %}
       <div class="collection-thumb-3">
-        <img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" />
+        <a href="{{ link.url }}"><img class="collection-thumb-img" src="{{ link.object.featured_image | img_url: 'master' }}" /></a>
         <div class="collection-thumb-title">
-          {{ link.object.title | escape }}
+          <a href="{{ link.url }}" class="link-hover">{{ link.object.title | escape }}</a>
           <div class="collection-price">{{ link.object.price | money_without_trailing_zeros }}</div>
         </div>
         <div class="collection-thumb-desc">{{ link.object.description }}</div>
