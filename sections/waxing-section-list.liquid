@@ -5,7 +5,7 @@
         <div class="frow justify-between">
             {% for block in section.blocks %}
             <div class="waxing_group_single">
-                <div class="waxing_list_title">{{ block.settings.list_name }}</div>
+                <div class="waxing_list_title"><a href="{{ page.metafields.global.book-link }}" class="link-hover">{{ block.settings.list_name }}</a></div>
                 <div class="waxing_list_desc">{{ block.settings.list_desc }}</div>
                 <div class="waxing_list">
                     {{ block.settings.list_price}}
